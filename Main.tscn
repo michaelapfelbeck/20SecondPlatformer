@@ -1,8 +1,21 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
+[ext_resource path="res://DirtCenter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 159, 302 )
+
+[node name="DirtCenter" parent="." instance=ExtResource( 1 )]
+position = Vector2( 64, 640 )
+
+[node name="DirtCenter2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 192, 640 )
+
+[node name="DirtCenter3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 320, 640 )
+
+[node name="DirtCenter4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 448, 640 )
