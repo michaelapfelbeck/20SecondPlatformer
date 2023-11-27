@@ -15,40 +15,50 @@ public class PlayerController : KinematicBody2D
 
     private AnimatedSprite sprite;
 
+    private PlayerStateMachine stateMachine;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         GD.Print("PlayerController Ready!");
+        
+        if(sprite != null)
+        {
+            GD.Print("already setup");
+        }
         Node result = GetNode("AnimatedSprite");
         sprite = (AnimatedSprite)result;
+
+        SetupStateMachine();
     }
-    /*
-     func _process(delta):
-    velocity.x = 0
-    if Input.is_action_pressed("move_left"):
-        velocity.x -= speed
-    if Input.is_action_pressed("move_right"):
-        velocity.x += speed
-        
-    velocity.y += gravity * delta
-    
-    if Input.is_action_pressed("jump") && is_on_floor():
-        velocity.y -= jumpForce
-    
-    if velocity.x < 0:
-        sprite.flip_h = true
-    elif velocity.x > 0:
-        sprite.flip_h = false
-    
-    velocity = move_and_slide(velocity, Vector2.UP)
-    
-    if position.y > fallDeathHeight:
-        die()
-     */
+
+    private void SetupStateMachine()
+    {
+        stateMachine = new PlayerStateMachine();
+
+        Idle idle = new Idle();
+        Running run = new Running();
+        Falling fall = new Falling();
+        Jumping jump = new Jumping();
+
+        stateMachine.At(idle, fall, () => !OnGround());
+        stateMachine.At(fall, idle, OnGround);
+
+        stateMachine.SetState(idle);
+    }
+
+    private bool OnGround()
+    {
+        return this.IsOnFloor();
+    }
+
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
         base._Process(delta);
+
+        stateMachine.Tick();
+
         velocity.x = 0;
         if (Input.IsActionPressed("move_left"))
         {
