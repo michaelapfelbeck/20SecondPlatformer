@@ -13,10 +13,14 @@ public class PlayerController : KinematicBody2D
     [Export]
     public float fallDeathHeight = 600;
 
+    private AnimatedSprite sprite;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        GD.Print("hai!");
+        GD.Print("PlayerController Ready!");
+        Node result = GetNode("AnimatedSprite");
+        sprite = (AnimatedSprite)result;
     }
     /*
      func _process(delta):
@@ -62,12 +66,18 @@ public class PlayerController : KinematicBody2D
             velocity.y -= jumpForce;
         }
 
-        if(velocity.x < 0)
+        if(velocity.x == 0)
         {
-            //flip sprite
+            sprite.Play("front");
+        }
+        else if(velocity.x < 0)
+        {
+            sprite.FlipH = true;
+            sprite.Play("walk");
         } else if(velocity.x > 0)
         {
-            //resert sprite
+            sprite.FlipH = false;
+            sprite.Play("walk");
         }
 
         velocity = MoveAndSlide(velocity, Vector2.Up);
