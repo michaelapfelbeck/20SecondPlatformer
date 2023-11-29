@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,9 @@ using System.Threading.Tasks;
 
 class Sliding : PlayerState
 {
+    public Sliding(PlayerController body, AnimatedSprite sprite) : base(body, sprite)
+    {
+    }
     public override string Description => throw new NotImplementedException();
 
     public override void OnEnter()

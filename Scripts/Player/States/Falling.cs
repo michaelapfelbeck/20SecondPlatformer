@@ -3,14 +3,29 @@ using System;
 
 class Falling : PlayerState
 {
-    public override string Description => throw new NotImplementedException(); public override void OnEnter()
+    public Falling(PlayerController body, AnimatedSprite sprite) : base(body, sprite)
     {
+    }
+
+    public override string Description => throw new NotImplementedException(); 
+    public override void OnEnter()
+    {
+        GD.Print("Enter Falling");
+        sprite.Play("jump");
     }
     public override void OnExit()
     {
     }
     public override void Tick()
     {
-        GD.Print("Falling");
+        if (body.velocity.x < 0)
+        {
+            sprite.FlipH = true;
+        }
+        else if (body.velocity.x > 0)
+        {
+            sprite.FlipH = false;
+        }
+        //GD.Print("Falling");
     }
 }

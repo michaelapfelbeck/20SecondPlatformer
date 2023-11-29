@@ -3,7 +3,7 @@ using System;
 
 public class PlayerController : KinematicBody2D
 {
-    Vector2 velocity = new Vector2(0, 0);
+    public Vector2 velocity = new Vector2(0, 0);
     [Export]
     public float gravity = 800;
     [Export]
@@ -17,15 +17,8 @@ public class PlayerController : KinematicBody2D
 
     private PlayerStateMachine stateMachine;
 
-    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        GD.Print("PlayerController Ready!");
-        
-        if(sprite != null)
-        {
-            GD.Print("already setup");
-        }
         Node result = GetNode("AnimatedSprite");
         sprite = (AnimatedSprite)result;
 
@@ -36,28 +29,45 @@ public class PlayerController : KinematicBody2D
     {
         stateMachine = new PlayerStateMachine();
 
-        Idle idle = new Idle();
-        Running run = new Running();
-        Falling fall = new Falling();
-        Jumping jump = new Jumping();
+        Idle idle = new Idle(this, sprite);
+        Running run = new Running(this, sprite);
+        Falling fall = new Falling(this, sprite);
+        Jumping jump = new Jumping(this, sprite);
 
-        stateMachine.At(idle, fall, () => !OnGround());
-        stateMachine.At(fall, idle, OnGround);
+        stateMachine.At(idle, fall, () => !IsOnGround());
+        stateMachine.At(fall, idle, () => IsOnGround() && !IsRunning());
+        stateMachine.At(jump, idle, () => IsOnGround() && !IsRunning());
+        stateMachine.At(fall, run, IsRunning);
+        stateMachine.At(jump, run, IsRunning);
+        stateMachine.At(jump, fall, IsFalling);
+        stateMachine.At(idle, fall, IsFalling);
+        stateMachine.At(idle, jump, IsJumping);
+        stateMachine.At(idle, run, IsRunning);
+        stateMachine.At(run, idle, () => !IsRunning());
 
         stateMachine.SetState(idle);
     }
 
-    private bool OnGround()
+    private bool IsOnGround()
     {
         return this.IsOnFloor();
     }
+    private bool IsFalling()
+    {
+        return !IsOnGround() && this.velocity.y > 0;
+    }
+    private bool IsJumping()
+    {
+        return !IsOnGround() && this.velocity.y < 0;
+    }
+    private bool IsRunning()
+    {
+        return IsOnGround() && this.velocity.x != 0;
+    }
 
-    //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
         base._Process(delta);
-
-        stateMachine.Tick();
 
         velocity.x = 0;
         if (Input.IsActionPressed("move_left"))
@@ -76,23 +86,11 @@ public class PlayerController : KinematicBody2D
             velocity.y -= jumpForce;
         }
 
-        if(velocity.x == 0)
-        {
-            sprite.Play("front");
-        }
-        else if(velocity.x < 0)
-        {
-            sprite.FlipH = true;
-            sprite.Play("walk");
-        } else if(velocity.x > 0)
-        {
-            sprite.FlipH = false;
-            sprite.Play("walk");
-        }
-
         velocity = MoveAndSlide(velocity, Vector2.Up);
 
-        if(Position.y > fallDeathHeight)
+        stateMachine.Tick();
+
+        if (Position.y > fallDeathHeight)
         {
             die();
         }
