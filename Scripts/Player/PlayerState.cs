@@ -7,12 +7,27 @@ using System.Threading.Tasks;
 
 public abstract class PlayerState: State
 {
-    protected PlayerController body;
+    protected KinematicBody2D body;
     protected AnimatedSprite sprite;
+    protected PlayerBlackboard blackboard;
 
-    protected PlayerState(PlayerController body, AnimatedSprite sprite)
+    protected PlayerState(KinematicBody2D body, PlayerBlackboard blackboard, AnimatedSprite sprite)
     {
         this.body = body;
         this.sprite = sprite;
+        this.blackboard = blackboard;
+    }
+
+    protected void SetFacing()
+    {
+
+        if (blackboard.Velocity.x < 0)
+        {
+            sprite.FlipH = true;
+        }
+        else if (blackboard.Velocity.x > 0)
+        {
+            sprite.FlipH = false;
+        }
     }
 }

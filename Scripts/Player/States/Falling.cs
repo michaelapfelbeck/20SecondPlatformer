@@ -3,29 +3,38 @@ using System;
 
 class Falling : PlayerState
 {
-    public Falling(PlayerController body, AnimatedSprite sprite) : base(body, sprite)
+    public Falling(KinematicBody2D body, PlayerBlackboard blackboard, AnimatedSprite sprite) : base(body, blackboard, sprite)
     {
     }
 
-    public override string Description => throw new NotImplementedException(); 
+    public override string Description => "Falling"; 
     public override void OnEnter()
     {
-        GD.Print("Enter Falling");
         sprite.Play("jump");
     }
     public override void OnExit()
     {
     }
-    public override void Tick()
+    public override void Tick(float delta)
     {
-        if (body.velocity.x < 0)
+        Vector2 velocity = blackboard.Velocity;
+        velocity.x = 0;
+        if (Input.IsActionPressed("move_left"))
         {
-            sprite.FlipH = true;
+            velocity.x -= blackboard.PlayerMaxSpeed;
         }
-        else if (body.velocity.x > 0)
+        if (Input.IsActionPressed("move_right"))
         {
-            sprite.FlipH = false;
+            velocity.x += blackboard.PlayerMaxSpeed;
         }
-        //GD.Print("Falling");
+
+        velocity.y += blackboard.FallGravity * delta;
+
+        if (Input.IsActionPressed("jump") && body.IsOnFloor())
+        {
+            velocity.y -= blackboard.JumpForce;
+        }
+        blackboard.Velocity = velocity;
+        SetFacing();
     }
 }

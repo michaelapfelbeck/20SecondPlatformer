@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Godot;
+using System;
 using System.Collections.Generic;
 
 public class StateMachine<T> where T : State
 {
     public string StateDescription { get => currentState.Description; }
     public T CurrentState { get => currentState; }
+    public bool Debug { get; set; }
     protected T currentState;
 
     private Dictionary<T, List<Transition>> transitionsTable = new Dictionary<T, List<Transition>>();
@@ -13,15 +15,29 @@ public class StateMachine<T> where T : State
 
     private static List<Transition> EmptyTransitions = new List<Transition>(0);
 
-    public void At(T from, T to, Func<bool> condition) => AddTransition(from, to, condition);
+    // TODO: Add state transition priority
+    public void At(T from, T to, Func<bool> condition, string transitionLabel = null) => AddTransition(from, to, condition, transitionLabel);
 
-    public void Tick()
+    public void Tick(float delta)
     {
         var transition = GetTransition();
         if (transition != null)
+        {
+            if (Debug)
+            {
+                if (transition.Label != null)
+                {
+                    GD.Print(String.Format("State transition {0} -> {1} triggered by {2}", currentState != null ? currentState.Description : "(null)", transition.To.Description, transition.Label));
+                }
+                else
+                {
+                    GD.Print(String.Format("State transition {0} -> {1}", currentState != null ? currentState.Description : "(null)", transition.To.Description));
+                }
+            }
             SetState(transition.To);
+        }
 
-        currentState?.Tick();
+        currentState?.Tick(delta);
     }
 
     public void SetState(T state)
@@ -39,7 +55,7 @@ public class StateMachine<T> where T : State
         currentState.OnEnter();
     }
 
-    public void AddTransition(T from, T to, Func<bool> predicate)
+    public void AddTransition(T from, T to, Func<bool> predicate, string transitionLabel = null)
     {
         if (transitionsTable.TryGetValue(from, out var transitions) == false)
         {
@@ -48,7 +64,7 @@ public class StateMachine<T> where T : State
                 [from] = transitions;
         }
 
-        transitions.Add(new Transition(to, predicate));
+        transitions.Add(new Transition(to, predicate, transitionLabel));
     }
 
     public void AddAnyTransition(T state, Func<bool> predicate)
@@ -60,11 +76,13 @@ public class StateMachine<T> where T : State
     {
         public Func<bool> Condition { get; }
         public T To { get; }
+        public string Label { get; }
 
-        public Transition(T to, Func<bool> condition)
+        public Transition(T to, Func<bool> condition, string label = null)
         {
             To = to;
             Condition = condition;
+            Label = label;
         }
     }
 

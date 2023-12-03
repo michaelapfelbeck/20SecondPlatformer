@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 class Ducking : PlayerState
 {
-    public Ducking(PlayerController body, AnimatedSprite sprite) : base(body, sprite)
+    public Ducking(KinematicBody2D body, PlayerBlackboard blackboard, AnimatedSprite sprite) : base(body, blackboard, sprite)
     {
     }
-    public override string Description => throw new NotImplementedException();
+    public override string Description => "Ducking";
 
     public override void OnEnter()
     {
@@ -22,7 +22,7 @@ class Ducking : PlayerState
         throw new NotImplementedException();
     }
 
-    public override void Tick()
+    public override void Tick(float delta)
     {
         throw new NotImplementedException();
     }
