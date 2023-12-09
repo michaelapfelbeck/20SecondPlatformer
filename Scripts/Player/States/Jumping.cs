@@ -7,12 +7,17 @@ using System.Threading.Tasks;
 
 class Jumping : PlayerState
 {
+    private bool jumpReleased = false;
+
+    private float Gravity { get { return jumpReleased ? blackboard.FallGravity : blackboard.Gravity; } }
+
     public Jumping(KinematicBody2D body, PlayerBlackboard blackboard, AnimatedSprite sprite) : base(body, blackboard, sprite)
     {
     }
     public override string Description => "Jumping"; 
     public override void OnEnter()
     {
+        jumpReleased = false;
         sprite.Play("jump");
     }
     public override void OnExit()
@@ -31,12 +36,13 @@ class Jumping : PlayerState
             velocity.x += blackboard.PlayerMaxSpeed;
         }
 
-        velocity.y += blackboard.Gravity * delta;
+        if (Input.IsActionJustReleased("jump"))
+        {
+            jumpReleased = true;
+        }
 
-        //if (Input.IsActionPressed("jump") && body.IsOnFloor())
-        //{
-        //    velocity.y -= blackboard.JumpForce;
-        //}
+        velocity.y += Gravity * delta;
+
         blackboard.Velocity = velocity;
         SetFacing();
     }
