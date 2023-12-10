@@ -1,4 +1,3 @@
-try velot integration
 add dash
 add double jump
 add acceleration
