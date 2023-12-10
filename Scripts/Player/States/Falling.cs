@@ -18,15 +18,8 @@ class Falling : PlayerState
     public override void Tick(float delta)
     {
         Vector2 velocity = blackboard.Velocity;
-        velocity.x = 0;
-        if (Input.IsActionPressed("move_left"))
-        {
-            velocity.x -= blackboard.PlayerMaxSpeed;
-        }
-        if (Input.IsActionPressed("move_right"))
-        {
-            velocity.x += blackboard.PlayerMaxSpeed;
-        }
+
+        velocity.x = RunInput(velocity.x, delta);
 
         velocity.y += blackboard.FallGravity * delta;
 

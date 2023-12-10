@@ -8,6 +8,7 @@
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 159, 302 )
 fallGravity = 1800.0
+playerMaxSpeed = 500.0
 jumpForce = 600.0
 
 [node name="DirtCenter" parent="." instance=ExtResource( 1 )]
@@ -21,3 +22,15 @@ position = Vector2( 320, 640 )
 
 [node name="DirtCenter4" parent="." instance=ExtResource( 1 )]
 position = Vector2( 448, 640 )
+
+[node name="DirtCenter5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 576, 640 )
+
+[node name="DirtCenter6" parent="." instance=ExtResource( 1 )]
+position = Vector2( 704, 640 )
+
+[node name="DirtCenter7" parent="." instance=ExtResource( 1 )]
+position = Vector2( 832, 640 )
+
+[node name="DirtCenter8" parent="." instance=ExtResource( 1 )]
+position = Vector2( 960, 640 )

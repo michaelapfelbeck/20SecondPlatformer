@@ -18,6 +18,94 @@ public abstract class PlayerState: State
         this.blackboard = blackboard;
     }
 
+
+    protected float RunInput(float xVelocity, float delta)
+    {
+        float velocity = xVelocity;
+        if (blackboard.InstantAcceleration)
+        {
+            velocity = HandleInstantAcc(blackboard.Velocity.x);
+        }
+        else
+        {
+            velocity = HandleRegularAcc(blackboard.Velocity.x, delta);
+        }
+        return velocity;
+    }
+
+    private float HandleInstantAcc(float originalVelocity)
+    {
+        float velocity = originalVelocity;
+
+        velocity = 0;
+        bool pressLeft = Input.IsActionPressed("move_left");
+        bool pressRight = Input.IsActionPressed("move_right");
+
+        if ((!pressLeft && !pressRight) || (pressLeft && pressRight))
+        {
+            velocity = 0;
+        }
+        else if (pressLeft)
+        {
+            velocity = -blackboard.PlayerMaxSpeed;
+        }
+        else if (pressRight)
+        {
+            velocity = blackboard.PlayerMaxSpeed;
+        }
+
+        return velocity;
+    }
+    private float HandleRegularAcc(float originalVelocity, float delta)
+    {
+        float velocity = originalVelocity;
+
+        bool pressLeft = Input.IsActionPressed("move_left");
+        bool pressRight = Input.IsActionPressed("move_right");
+
+        // pressing left and right together cancels each other out
+        // if inputing in one direction while moving in the other,
+        // slow down even fast by adding Decceleration as well
+        if ((!pressLeft && !pressRight) || (pressLeft && pressRight))
+        {
+            if (velocity < 0)
+            {
+                velocity = Math.Min(velocity + blackboard.Decceleration * delta, 0);
+            }
+            else if (velocity > 0)
+            {
+                velocity = Math.Max(velocity - blackboard.Decceleration * delta, 0);
+            }
+        }
+        else if (pressLeft)
+        {
+            float acc = blackboard.Acceleration;
+            if(velocity > 0)
+            {
+                acc += blackboard.Decceleration;
+            }
+            velocity -= acc * delta;
+        }
+        else if (pressRight)
+        {
+            float acc = blackboard.Acceleration;
+            if (velocity < 0)
+            {
+                acc += blackboard.Decceleration;
+            }
+            velocity += acc * delta;
+        }
+
+        velocity = Clamp(velocity, -blackboard.PlayerMaxSpeed, blackboard.PlayerMaxSpeed);
+
+        return velocity;
+    }
+
+    protected float Clamp(float value, float low, float high)
+    {
+        return Math.Max(Math.Min(value, high), low);
+    }
+
     protected void SetFacing()
     {
 

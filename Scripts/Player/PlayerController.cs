@@ -4,21 +4,35 @@ using System;
 public class PlayerController : KinematicBody2D, PlayerBlackboard
 {
     public Vector2 velocity = new Vector2(0, 0);
+    // values are a;; pixels/second unless otherwise noted
     [Export]
     public float gravity = 600;
     [Export]
     public float fallGravity = 1200;
+
+    [Export]    // seconds, time to go from stopped to max running speed, 0 = instant
+    public float accTime = 0.5f;
+    [Export]    // seconds, time to go from max running speed to stopped if the let go of the controls, 0 = instant
+    public float deccTime = 0.5f;
     [Export]
     public float playerMaxSpeed = 200;
+    
     [Export]
     public float jumpForce = 800;
+    
     [Export]
     public float fallDeathHeight = 600;
 
+    // Blackboard variables
     public float Gravity { get { return gravity; } }
     public float FallGravity { get { return fallGravity; } }
     public float PlayerMaxSpeed { get { return playerMaxSpeed; } }
+    public bool InstantAcceleration { get; private set; }
+    public float Acceleration { get; private set; }
+    public float Decceleration { get; private set; }
     public float JumpForce { get { return jumpForce; } }
+
+
     public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
 
     private AnimatedSprite sprite;
@@ -30,7 +44,26 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         Node result = GetNode("AnimatedSprite");
         sprite = (AnimatedSprite)result;
 
+        DeriveVariables();
+
         SetupStateMachine();
+    }
+
+    private void DeriveVariables()
+    {
+        if(accTime <= 0)
+        {
+            GD.Print("instant");
+            InstantAcceleration = true;
+            Acceleration = 0;
+            Decceleration = 0;
+        }
+        else
+        {
+            GD.Print("use acc");
+            Acceleration = playerMaxSpeed / accTime;
+            Decceleration = playerMaxSpeed / deccTime;
+        }
     }
 
     private void SetupStateMachine()
