@@ -19,6 +19,8 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     
     [Export]
     public float jumpForce = 800;
+    [Export]
+    public float terminalVelocity = 1000;
     
     [Export]
     public float fallDeathHeight = 600;
@@ -26,6 +28,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     // Blackboard variables
     public float Gravity { get { return gravity; } }
     public float FallGravity { get { return fallGravity; } }
+    public float TerminalVelocity { get { return terminalVelocity; } }
     public float PlayerMaxSpeed { get { return playerMaxSpeed; } }
     public bool InstantAcceleration { get; private set; }
     public float Acceleration { get; private set; }
@@ -53,14 +56,12 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     {
         if(accTime <= 0)
         {
-            GD.Print("instant");
             InstantAcceleration = true;
             Acceleration = 0;
             Decceleration = 0;
         }
         else
         {
-            GD.Print("use acc");
             Acceleration = playerMaxSpeed / accTime;
             Decceleration = playerMaxSpeed / deccTime;
         }

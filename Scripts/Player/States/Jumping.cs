@@ -34,7 +34,7 @@ class Jumping : PlayerState
             jumpReleased = true;
         }
 
-        velocity.y += Gravity * delta;
+        velocity.y = ApplyGravity(velocity.y, Gravity, delta);
 
         blackboard.Velocity = velocity;
         SetFacing();

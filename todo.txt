@@ -1,6 +1,6 @@
+add basic camera
 add dash
 add double jump
-add acceleration
 add coyote time
 add jump buffering
 switch to dereived movement values

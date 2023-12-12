@@ -101,6 +101,14 @@ public abstract class PlayerState: State
         return velocity;
     }
 
+    protected float ApplyGravity(float value, float gravity, float delta)
+    {
+        float velocity = value;
+        velocity += gravity * delta;
+        velocity = Math.Min(velocity, blackboard.TerminalVelocity);
+        return velocity;
+    }
+
     protected float Clamp(float value, float low, float high)
     {
         return Math.Max(Math.Min(value, high), low);

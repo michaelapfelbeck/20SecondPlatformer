@@ -21,7 +21,7 @@ class Falling : PlayerState
 
         velocity.x = RunInput(velocity.x, delta);
 
-        velocity.y += blackboard.FallGravity * delta;
+        velocity.y = ApplyGravity(velocity.y, blackboard.FallGravity, delta) ;
 
         if (Input.IsActionPressed("jump") && body.IsOnFloor())
         {

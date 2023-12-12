@@ -11,6 +11,7 @@ public interface PlayerBlackboard
     float JumpForce { get; }
     float Gravity { get; }
     float FallGravity { get; }
+    float TerminalVelocity { get; }
 
     bool InstantAcceleration { get; }
     float PlayerMaxSpeed { get; }

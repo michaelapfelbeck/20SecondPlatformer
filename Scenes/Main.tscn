@@ -24,13 +24,25 @@ position = Vector2( 320, 640 )
 position = Vector2( 448, 640 )
 
 [node name="DirtCenter5" parent="." instance=ExtResource( 1 )]
-position = Vector2( 576, 640 )
+position = Vector2( 704, 640 )
 
 [node name="DirtCenter6" parent="." instance=ExtResource( 1 )]
-position = Vector2( 704, 640 )
+position = Vector2( 2240, 640 )
 
 [node name="DirtCenter7" parent="." instance=ExtResource( 1 )]
 position = Vector2( 832, 640 )
 
 [node name="DirtCenter8" parent="." instance=ExtResource( 1 )]
 position = Vector2( 960, 640 )
+
+[node name="DirtCenter9" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2112, 640 )
+
+[node name="DirtCenter10" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1344, 640 )
+
+[node name="DirtCenter11" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1472, 640 )
+
+[node name="DirtCenter12" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1600, 640 )

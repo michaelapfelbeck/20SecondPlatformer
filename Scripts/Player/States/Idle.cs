@@ -21,7 +21,7 @@ class Idle : PlayerState
 
         velocity.x = RunInput(velocity.x, delta);
 
-        velocity.y += blackboard.Gravity * delta;
+        velocity.y = ApplyGravity(velocity.y, blackboard.Gravity, delta);
 
         if (Input.IsActionPressed("jump") && body.IsOnFloor())
         {
