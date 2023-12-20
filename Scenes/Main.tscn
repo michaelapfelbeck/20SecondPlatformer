@@ -12,7 +12,7 @@ gravity = 800.0
 fallGravity = 2400.0
 accTime = 0.5
 playerMaxSpeed = 850.0
-jumpForce = 650.0
+jumpForce = 700.0
 fallDeathHeight = 1000.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -22,7 +22,7 @@ limit_bottom = 800
 smoothing_enabled = true
 editor_draw_screen = false
 script = ExtResource( 3 )
-lookAheadMax = Vector2( 2, 1 )
+lookAheadMax = Vector2( 3, 1 )
 player = NodePath("..")
 
 [node name="Terrain" type="Node" parent="."]

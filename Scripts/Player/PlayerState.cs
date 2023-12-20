@@ -101,6 +101,28 @@ public abstract class PlayerState: State
         return velocity;
     }
 
+    protected float JumpFromGround()
+    {
+        float result = 0;
+        if (Input.IsActionJustPressed("jump") && body.IsOnFloor())
+        {
+            result = blackboard.JumpForce;
+        }
+        return result;
+    }
+    protected float DoubleJump()
+    {
+        float result = 0;
+        if (blackboard.DoubleJump && !blackboard.DoubleJumped && Input.IsActionJustPressed("jump"))
+        {
+            GD.Print("Double jump!");
+            result = blackboard.JumpForce;
+            blackboard.DoubleJumped = true;
+        }
+
+        return result;
+    }
+
     protected float ApplyGravity(float value, float gravity, float delta)
     {
         float velocity = value;

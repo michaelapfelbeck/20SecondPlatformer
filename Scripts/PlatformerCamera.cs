@@ -7,7 +7,7 @@ public class PlatformerCamera : Camera2D
     private bool lookahead = true;
 
     [Export]
-    private float lookaheadSpeed = 0.1f;
+    private float lookaheadSpeed = 10f;
 
     [Export]
     private Vector2 lookAheadMax = Vector2.Zero;
@@ -43,8 +43,9 @@ public class PlatformerCamera : Camera2D
             
             float ratioH = blackboard.Velocity.x / blackboard.PlayerMaxSpeed;
             float ratioV = blackboard.Velocity.y / blackboard.PlayerMaxSpeed;
-            this.OffsetH = Mathf.Lerp(this.OffsetH, ratioH * lookAheadMax.x, lookaheadSpeed);
-            this.OffsetV = Mathf.Lerp(this.OffsetV, ratioV * lookAheadMax.y, lookaheadSpeed);
+            this.OffsetH = Mathf.Lerp(this.OffsetH, ratioH * lookAheadMax.x, lookaheadSpeed * delta);
+            this.OffsetV = Mathf.Lerp(this.OffsetV, ratioV * lookAheadMax.y, lookaheadSpeed * delta);
+            // GD.Print(String.Format("Lookahead: {0}", this.OffsetH));
         }
     }
 }

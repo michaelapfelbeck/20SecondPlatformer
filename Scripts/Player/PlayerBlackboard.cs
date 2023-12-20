@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 public interface PlayerBlackboard
 {
     Vector2 Velocity { get; set; }
+    bool DoubleJump { get; }
+    bool DoubleJumped { get; set; }
     float JumpForce { get; }
     float Gravity { get; }
     float FallGravity { get; }

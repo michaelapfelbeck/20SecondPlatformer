@@ -34,6 +34,15 @@ class Jumping : PlayerState
             jumpReleased = true;
         }
 
+        if(jumpReleased && blackboard.DoubleJump)
+        {
+            float result = DoubleJump();
+            if(result != 0)
+            {
+                velocity.y = -result;
+            }
+        }
+
         velocity.y = ApplyGravity(velocity.y, Gravity, delta);
 
         blackboard.Velocity = velocity;

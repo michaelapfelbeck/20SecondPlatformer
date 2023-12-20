@@ -20,6 +20,8 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     [Export]
     public float jumpForce = 800;
     [Export]
+    public bool doubleJump = true;
+    [Export]
     public float terminalVelocity = 1000;
     
     [Export]
@@ -34,6 +36,8 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public float Acceleration { get; private set; }
     public float Decceleration { get; private set; }
     public float JumpForce { get { return jumpForce; } }
+    public bool DoubleJump { get { return doubleJump; } }
+    public bool DoubleJumped { get; set; }
 
 
     public Vector2 Velocity { get { return velocity; } set { velocity = value; } }

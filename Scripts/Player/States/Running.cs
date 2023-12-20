@@ -14,6 +14,7 @@ class Running : PlayerState
     public override string Description => "Running";
     public override void OnEnter()
     {
+        blackboard.DoubleJumped = false;
         sprite.Play("walk");
     }
     public override void OnExit()
@@ -27,10 +28,8 @@ class Running : PlayerState
 
         velocity.y = ApplyGravity(velocity.y, blackboard.Gravity, delta);
 
-        if (Input.IsActionPressed("jump") && body.IsOnFloor())
-        {
-            velocity.y -= blackboard.JumpForce;
-        }
+        velocity.y -= JumpFromGround();
+
         blackboard.Velocity = velocity;
         SetFacing();
     }

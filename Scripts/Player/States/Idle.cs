@@ -10,6 +10,7 @@ class Idle : PlayerState
     public override string Description => "Idle"; 
     public override void OnEnter()
     {
+        blackboard.DoubleJumped = false;
         sprite.Play("front");
     }
     public override void OnExit()
@@ -23,10 +24,8 @@ class Idle : PlayerState
 
         velocity.y = ApplyGravity(velocity.y, blackboard.Gravity, delta);
 
-        if (Input.IsActionPressed("jump") && body.IsOnFloor())
-        {
-            velocity.y -= blackboard.JumpForce;
-        }
+        velocity.y -= JumpFromGround();
+
         blackboard.Velocity = velocity;
         SetFacing();
     }
