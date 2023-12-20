@@ -4,32 +4,47 @@ using System;
 public class PlatformerCamera : Camera2D
 {
     [Export]
+    private bool lookahead = true;
+
+    [Export]
+    private float lookaheadSpeed = 0.1f;
+
+    [Export]
+    private Vector2 lookAheadMax = Vector2.Zero;
+
+    [Export]
     private NodePath player;
  
-    private Node2D followTarget;
+    private PlayerBlackboard blackboard;
 
     public override void _Ready()
     {
-        GD.Print("hai.");
-        SetupFollowPlayer();
+        GetPlayerBlackboard();
     }
 
-    private void SetupFollowPlayer()
+    private void GetPlayerBlackboard()
     {
         Node result = GetNode(player);
         if (result == null)
         {
-            GD.Print("Player not found");
+            GD.PrintErr("Player not found");
+            lookahead = false;
             return;
         }
-        followTarget = (Node2D)result;
+        blackboard = (PlayerBlackboard)result;
     }
 
     public override void _Process(float delta)
     {
-        if(followTarget != null)
+        // adjust camera offset based on player velocity to show more of the game space
+        // in the direction the player is moving
+        if (lookahead)
         {
-            this.Position = followTarget.Position;
+            
+            float ratioH = blackboard.Velocity.x / blackboard.PlayerMaxSpeed;
+            float ratioV = blackboard.Velocity.y / blackboard.PlayerMaxSpeed;
+            this.OffsetH = Mathf.Lerp(this.OffsetH, ratioH * lookAheadMax.x, lookaheadSpeed);
+            this.OffsetV = Mathf.Lerp(this.OffsetV, ratioV * lookAheadMax.y, lookaheadSpeed);
         }
     }
 }
