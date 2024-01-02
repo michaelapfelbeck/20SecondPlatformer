@@ -12,14 +12,19 @@ gravity = 800.0
 fallGravity = 2400.0
 accTime = 0.5
 playerMaxSpeed = 850.0
-jumpForce = 700.0
+jumpForce = 750.0
 fallDeathHeight = 1000.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
 zoom = Vector2( 2, 2 )
 limit_bottom = 800
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
 smoothing_enabled = true
+drag_margin_left = 0.1
+drag_margin_top = 0.15
+drag_margin_right = 0.1
 editor_draw_screen = false
 script = ExtResource( 3 )
 lookAheadMax = Vector2( 3, 1 )

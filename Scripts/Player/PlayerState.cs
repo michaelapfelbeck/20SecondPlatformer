@@ -115,7 +115,6 @@ public abstract class PlayerState: State
         float result = 0;
         if (blackboard.DoubleJump && !blackboard.DoubleJumped && Input.IsActionJustPressed("jump"))
         {
-            GD.Print("Double jump!");
             result = blackboard.JumpForce;
             blackboard.DoubleJumped = true;
         }
