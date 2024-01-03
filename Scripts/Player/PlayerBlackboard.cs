@@ -19,4 +19,5 @@ public interface PlayerBlackboard
     float PlayerMaxSpeed { get; }
     float Acceleration { get; }
     float Decceleration { get; }
+    BufferButton JumpBuffer { get; }
 }

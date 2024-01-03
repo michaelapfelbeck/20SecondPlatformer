@@ -20,6 +20,8 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     [Export]
     public float jumpForce = 800;
     [Export]
+    public float jumpBufferLifespan = 0.07f;
+    [Export]
     public bool doubleJump = true;
     [Export]
     public float terminalVelocity = 1000;
@@ -38,6 +40,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public float JumpForce { get { return jumpForce; } }
     public bool DoubleJump { get { return doubleJump; } }
     public bool DoubleJumped { get; set; }
+    public BufferButton JumpBuffer { get { return jumpBuffer; } }
 
 
     public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
@@ -46,10 +49,14 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
 
     private PlayerStateMachine stateMachine;
 
+    private BufferButton jumpBuffer;
+
     public override void _Ready()
     {
         Node result = GetNode("AnimatedSprite");
         sprite = (AnimatedSprite)result;
+
+        jumpBuffer = new BufferButton("jump", jumpBufferLifespan);
 
         DeriveVariables();
 
@@ -124,6 +131,8 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public override void _Process(float delta)
     {
         base._Process(delta);
+
+        jumpBuffer.TIck(delta);
 
         stateMachine.Tick(delta);
 

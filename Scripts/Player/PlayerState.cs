@@ -104,18 +104,20 @@ public abstract class PlayerState: State
     protected float JumpFromGround()
     {
         float result = 0;
-        if (Input.IsActionJustPressed("jump") && body.IsOnFloor())
+        if (blackboard.JumpBuffer.JustPressed && body.IsOnFloor())
         {
             result = blackboard.JumpForce;
+            blackboard.JumpBuffer.Consume();
         }
         return result;
     }
     protected float DoubleJump()
     {
         float result = 0;
-        if (blackboard.DoubleJump && !blackboard.DoubleJumped && Input.IsActionJustPressed("jump"))
+        if (blackboard.DoubleJump && !blackboard.DoubleJumped && blackboard.JumpBuffer.JustPressed)
         {
             result = blackboard.JumpForce;
+            blackboard.JumpBuffer.Consume();
             blackboard.DoubleJumped = true;
         }
 

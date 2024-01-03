@@ -29,7 +29,7 @@ class Jumping : PlayerState
 
         velocity.x = RunInput(velocity.x, delta);
 
-        if (Input.IsActionJustReleased("jump"))
+        if (blackboard.JumpBuffer.Released)
         {
             jumpReleased = true;
         }
