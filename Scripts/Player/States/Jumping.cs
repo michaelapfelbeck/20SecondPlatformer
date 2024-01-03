@@ -17,6 +17,7 @@ class Jumping : PlayerState
     public override string Description => "Jumping"; 
     public override void OnEnter()
     {
+        blackboard.CoyoteBuffer.Clear();
         jumpReleased = false;
         sprite.Play("jump");
     }

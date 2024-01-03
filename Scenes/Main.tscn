@@ -13,6 +13,7 @@ fallGravity = 2400.0
 accTime = 0.5
 playerMaxSpeed = 850.0
 jumpForce = 750.0
+doubleJump = false
 fallDeathHeight = 1000.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

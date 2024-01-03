@@ -104,7 +104,7 @@ public abstract class PlayerState: State
     protected float JumpFromGround()
     {
         float result = 0;
-        if (blackboard.JumpBuffer.JustPressed && body.IsOnFloor())
+        if (blackboard.JumpBuffer.JustPressed && blackboard.CoyoteBuffer.Value)
         {
             result = blackboard.JumpForce;
             blackboard.JumpBuffer.Consume();

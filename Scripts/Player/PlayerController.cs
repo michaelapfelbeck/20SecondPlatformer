@@ -28,6 +28,8 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     
     [Export]
     public float fallDeathHeight = 600;
+    [Export]
+    public float coyoteTime = 0.1f;
 
     // Blackboard variables
     public float Gravity { get { return gravity; } }
@@ -41,6 +43,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public bool DoubleJump { get { return doubleJump; } }
     public bool DoubleJumped { get; set; }
     public BufferButton JumpBuffer { get { return jumpBuffer; } }
+    public BoolBuffer CoyoteBuffer { get => coyoteBuffer; }
 
 
     public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
@@ -51,12 +54,16 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
 
     private BufferButton jumpBuffer;
 
+    private BoolBuffer coyoteBuffer;
+
     public override void _Ready()
     {
         Node result = GetNode("AnimatedSprite");
         sprite = (AnimatedSprite)result;
 
         jumpBuffer = new BufferButton("jump", jumpBufferLifespan);
+
+        coyoteBuffer = new BoolBuffer(() => IsOnGround(), coyoteTime);
 
         DeriveVariables();
 
@@ -99,6 +106,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         stateMachine.At(idle, jump, IsJumping, "9");
         stateMachine.At(idle, run, IsRunning, "10");
         stateMachine.At(run, idle, () => !IsRunning(), "11");
+        stateMachine.At(fall, jump, () => fall.CoyoteTrigger, "Coyote Time Trigger");
 
         stateMachine.SetState(idle);
     }
@@ -133,6 +141,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         base._Process(delta);
 
         jumpBuffer.TIck(delta);
+        coyoteBuffer.TIck(delta);
 
         stateMachine.Tick(delta);
 

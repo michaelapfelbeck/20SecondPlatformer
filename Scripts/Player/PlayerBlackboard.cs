@@ -20,4 +20,5 @@ public interface PlayerBlackboard
     float Acceleration { get; }
     float Decceleration { get; }
     BufferButton JumpBuffer { get; }
+    BoolBuffer CoyoteBuffer { get; }
 }
