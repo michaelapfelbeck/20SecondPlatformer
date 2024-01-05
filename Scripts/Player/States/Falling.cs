@@ -8,8 +8,6 @@ class Falling : PlayerState
     }
 
     public override string Description => "Falling"; 
-
-    public bool CoyoteTrigger { get; private set; }
     public override void OnEnter()
     {
         sprite.Play("jump");
@@ -23,22 +21,19 @@ class Falling : PlayerState
 
         velocity.x = RunInput(velocity.x, delta);
 
-        float result = DoubleJump();
-        if(result != 0)
-        {
-            velocity.y = -result;
-        }
-
         // coyote time test
         float coyoteJump = JumpFromGround();
         if (coyoteJump != 0)
         {
             velocity.y = -coyoteJump;
-            CoyoteTrigger = true;
         }
         else
         {
-            CoyoteTrigger = false;
+            float result = DoubleJump();
+            if (result != 0)
+            {
+                velocity.y = -result;
+            }
         }
 
         velocity.y = ApplyGravity(velocity.y, blackboard.FallGravity, delta) ;

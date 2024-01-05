@@ -121,9 +121,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         stateMachine.At(idle, jump, IsJumping, "9");
         stateMachine.At(idle, run, IsRunning, "10");
         stateMachine.At(run, idle, () => !IsRunning(), "11");
-        // TODO: if double jump is on you can't double jump from a coyote time jump
         stateMachine.At(fall, jump, IsJumping, "Double Jump?");
-        stateMachine.At(fall, jump, () => fall.CoyoteTrigger, "Coyote Time Trigger");
 
         stateMachine.SetState(idle);
     }
