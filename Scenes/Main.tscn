@@ -8,11 +8,11 @@
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 159, 302 )
-gravity = 800.0
-fallGravity = 2400.0
+jumpHeight = 272.0
+jumpTimeToPeak = 0.5
+jumpTimeToFall = 0.3
 accTime = 0.5
 playerMaxSpeed = 850.0
-jumpForce = 750.0
 doubleJump = false
 fallDeathHeight = 1000.0
 

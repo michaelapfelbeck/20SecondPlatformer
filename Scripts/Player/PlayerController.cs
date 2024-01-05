@@ -6,9 +6,11 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public Vector2 velocity = new Vector2(0, 0);
     // values are a;; pixels/second unless otherwise noted
     [Export]
-    public float gravity = 600;
+    public float jumpHeight = 128;
     [Export]
-    public float fallGravity = 1200;
+    public float jumpTimeToPeak = 1;
+    [Export]
+    public float jumpTimeToFall = 0.5f;
 
     [Export]    // seconds, time to go from stopped to max running speed, 0 = instant
     public float accTime = 0.5f;
@@ -16,9 +18,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public float deccTime = 0.5f;
     [Export]
     public float playerMaxSpeed = 200;
-    
-    [Export]
-    public float jumpForce = 800;
+
     [Export]
     public float jumpBufferLifespan = 0.07f;
     [Export]
@@ -31,14 +31,21 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     [Export]
     public float coyoteTime = 0.1f;
 
+    // derived variables
+    private float jumpForce = 800;
+    private float gravity = 600;
+    private float fallGravity = 1200;
+    private float acceleration = 1200;
+    private float decceleration = 1200;
+
     // Blackboard variables
     public float Gravity { get { return gravity; } }
     public float FallGravity { get { return fallGravity; } }
     public float TerminalVelocity { get { return terminalVelocity; } }
     public float PlayerMaxSpeed { get { return playerMaxSpeed; } }
     public bool InstantAcceleration { get; private set; }
-    public float Acceleration { get; private set; }
-    public float Decceleration { get; private set; }
+    public float Acceleration { get => acceleration; }
+    public float Decceleration { get => decceleration; }
     public float JumpForce { get { return jumpForce; } }
     public bool DoubleJump { get { return doubleJump; } }
     public bool DoubleJumped { get; set; }
@@ -67,6 +74,10 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
 
         DeriveVariables();
 
+        GD.Print("Jump force: " + jumpForce);
+        GD.Print("gravity force: " + gravity);
+        GD.Print("fall force: " + fallGravity);
+
         SetupStateMachine();
     }
 
@@ -75,14 +86,18 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         if(accTime <= 0)
         {
             InstantAcceleration = true;
-            Acceleration = 0;
-            Decceleration = 0;
+            acceleration = 0;
+            decceleration = 0;
         }
         else
         {
-            Acceleration = playerMaxSpeed / accTime;
-            Decceleration = playerMaxSpeed / deccTime;
+            acceleration = playerMaxSpeed / accTime;
+            decceleration = playerMaxSpeed / deccTime;
         }
+
+        jumpForce = 2.0f * jumpHeight / jumpTimeToPeak;
+        gravity = 2.0f * jumpHeight / (jumpTimeToPeak * jumpTimeToPeak);
+        fallGravity = 2.0f * jumpHeight / (jumpTimeToFall * jumpTimeToFall);
     }
 
     private void SetupStateMachine()
@@ -106,6 +121,8 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         stateMachine.At(idle, jump, IsJumping, "9");
         stateMachine.At(idle, run, IsRunning, "10");
         stateMachine.At(run, idle, () => !IsRunning(), "11");
+        // TODO: if double jump is on you can't double jump from a coyote time jump
+        stateMachine.At(fall, jump, IsJumping, "Double Jump?");
         stateMachine.At(fall, jump, () => fall.CoyoteTrigger, "Coyote Time Trigger");
 
         stateMachine.SetState(idle);
@@ -139,6 +156,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public override void _Process(float delta)
     {
         base._Process(delta);
+        DeriveVariables();
 
         jumpBuffer.TIck(delta);
         coyoteBuffer.TIck(delta);

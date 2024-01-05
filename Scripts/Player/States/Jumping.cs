@@ -41,6 +41,7 @@ class Jumping : PlayerState
             if(result != 0)
             {
                 velocity.y = -result;
+                jumpReleased = false;
             }
         }
 
