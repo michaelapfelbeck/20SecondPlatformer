@@ -1,6 +1,9 @@
-add basic camera
-add dash
-add double jump
-add coyote time
-add jump buffering
-switch to dereived movement values
+add better dash
+improve camera lookahead
+add wall jump
+add sfx
+add level loading
+add ui
+add menu
+add gamepad support
+better payer character

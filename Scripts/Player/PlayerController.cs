@@ -18,6 +18,8 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public float deccTime = 0.5f;
     [Export]
     public float playerMaxSpeed = 200;
+    [Export]
+    public float dashMultiplier = 2;
 
     [Export]
     public float jumpBufferLifespan = 0.07f;
@@ -42,9 +44,9 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public float Gravity { get { return gravity; } }
     public float FallGravity { get { return fallGravity; } }
     public float TerminalVelocity { get { return terminalVelocity; } }
-    public float PlayerMaxSpeed { get { return playerMaxSpeed; } }
+    public float PlayerMaxSpeed { get { return dashing? playerMaxSpeed * dashMultiplier : playerMaxSpeed; } }
     public bool InstantAcceleration { get; private set; }
-    public float Acceleration { get => acceleration; }
+    public float Acceleration { get { return dashing ? acceleration * dashMultiplier : acceleration; } }
     public float Decceleration { get => decceleration; }
     public float JumpForce { get { return jumpForce; } }
     public bool DoubleJump { get { return doubleJump; } }
@@ -74,13 +76,14 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
 
         DeriveVariables();
 
-        GD.Print("Jump force: " + jumpForce);
-        GD.Print("gravity force: " + gravity);
-        GD.Print("fall force: " + fallGravity);
+        //GD.Print("Jump force: " + jumpForce);
+        //GD.Print("gravity force: " + gravity);
+        //GD.Print("fall force: " + fallGravity);
 
         SetupStateMachine();
     }
 
+    // https://www.youtube.com/watch?v=hG9SzQxaCm8
     private void DeriveVariables()
     {
         if(accTime <= 0)
@@ -151,10 +154,14 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         return IsOnGround() && this.velocity.x != 0;
     }
 
+    private bool dashing = false;
     public override void _Process(float delta)
     {
         base._Process(delta);
-        DeriveVariables();
+        // update every frame when tweaking variables
+        // DeriveVariables();
+
+        dashing = Input.IsActionPressed("dash");
 
         jumpBuffer.TIck(delta);
         coyoteBuffer.TIck(delta);
