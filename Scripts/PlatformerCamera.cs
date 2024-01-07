@@ -38,13 +38,17 @@ public class PlatformerCamera : Camera2D
     {
         // adjust camera offset based on player velocity to show more of the game space
         // in the direction the player is moving
+        // TODO: get this working correctly with built in camera drag zones, camera doesn't 
+        // feel good when switching directions
         if (lookahead)
         {
-            
             float ratioH = blackboard.Velocity.x / blackboard.PlayerMaxSpeed;
             float ratioV = blackboard.Velocity.y / blackboard.PlayerMaxSpeed;
+
+            Vector2 offset = new Vector2(OffsetH, OffsetV);
             this.OffsetH = Mathf.Lerp(this.OffsetH, ratioH * lookAheadMax.x, lookaheadSpeed * delta);
             this.OffsetV = Mathf.Lerp(this.OffsetV, ratioV * lookAheadMax.y, lookaheadSpeed * delta);
+            //this.OffsetH = Mathf.Lerp(this.OffsetH, blackboard.Velocity.x, lookaheadSpeed * delta);
             // GD.Print(String.Format("Lookahead: {0}", this.OffsetH));
         }
     }

@@ -19,16 +19,16 @@ fallDeathHeight = 1000.0
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
 zoom = Vector2( 2, 2 )
+limit_left = -50
 limit_bottom = 800
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
 smoothing_enabled = true
 drag_margin_left = 0.1
 drag_margin_top = 0.15
 drag_margin_right = 0.1
 editor_draw_screen = false
 script = ExtResource( 3 )
-lookAheadMax = Vector2( 3, 1 )
+lookaheadSpeed = 3.0
+lookAheadMax = Vector2( 10, 1 )
 player = NodePath("..")
 
 [node name="Terrain" type="Node" parent="."]
