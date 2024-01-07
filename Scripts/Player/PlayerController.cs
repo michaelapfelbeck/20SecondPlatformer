@@ -20,6 +20,10 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public float playerMaxSpeed = 200;
     [Export]
     public float dashMultiplier = 2;
+    [Export]
+    public float dashLength = 1;
+    [Export]
+    public float dashCooldown = 1;
 
     [Export]
     public float jumpBufferLifespan = 0.07f;
@@ -155,13 +159,16 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     }
 
     private bool dashing = false;
+    private float dashTime = 0f;
+    private float dashReset = 0f;
+
     public override void _Process(float delta)
     {
         base._Process(delta);
         // update every frame when tweaking variables
         // DeriveVariables();
 
-        dashing = Input.IsActionPressed("dash");
+        DashHandler(delta);
 
         jumpBuffer.TIck(delta);
         coyoteBuffer.TIck(delta);
@@ -173,6 +180,44 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         if (Position.y > fallDeathHeight)
         {
             die();
+        }
+    }
+
+    private void DashHandler(float delta)
+    {
+        if (dashing && dashTime >= dashLength)
+        {
+            dashing = false;
+        }
+        else if (dashing && Input.IsActionPressed("dash"))
+        {
+            dashTime += delta;
+        }
+        else if (Input.IsActionJustPressed("dash") && dashReset >= dashCooldown)
+        {
+            dashing = true;
+            dashReset = 0;
+            if(velocity.x < 0)
+            {
+                velocity.x = Mathf.Min(-1 * PlayerMaxSpeed * (1 + dashMultiplier / 2), velocity.x);
+            } else
+            {
+                velocity.x = Mathf.Max(PlayerMaxSpeed * (1 + dashMultiplier / 2), velocity.x);
+            }
+        }
+        else
+        {
+            dashing = false;
+        }
+
+        if (Input.IsActionJustReleased("dash"))
+        {
+            dashTime = 0;
+        }
+
+        if (!dashing)
+        {
+            dashReset += delta;
         }
     }
 

@@ -144,6 +144,42 @@ position = Vector2( 4416, 640 )
 [node name="DirtCenter42" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 4544, 640 )
 
+[node name="DirtCenter43" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( 5312, 640 )
+
+[node name="DirtCenter44" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( 4672, 640 )
+
+[node name="DirtCenter45" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( 5184, 640 )
+
+[node name="DirtCenter46" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( 4800, 640 )
+
+[node name="DirtCenter47" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( 4928, 640 )
+
+[node name="DirtCenter48" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( 5056, 640 )
+
+[node name="DirtCenter49" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( 5440, 640 )
+
+[node name="DirtCenter50" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( 5568, 640 )
+
+[node name="DirtCenter51" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( 5696, 640 )
+
+[node name="DirtCenter52" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( 5824, 640 )
+
+[node name="DirtCenter53" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( 5952, 640 )
+
+[node name="DirtCenter54" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( 6080, 640 )
+
 [node name="DirtCenter20" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 832, 512 )
 
