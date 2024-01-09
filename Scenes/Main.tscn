@@ -184,7 +184,7 @@ position = Vector2( 6080, 640 )
 position = Vector2( 832, 512 )
 
 [node name="DirtCenter21" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 2112, 384 )
+position = Vector2( 2240, 256 )
 
 [node name="DirtCenter22" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 1472, 512 )
@@ -193,4 +193,4 @@ position = Vector2( 1472, 512 )
 position = Vector2( 1472, 384 )
 
 [node name="DirtCenter24" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 2112, 512 )
+position = Vector2( 2368, 256 )

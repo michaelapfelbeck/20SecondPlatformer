@@ -38,6 +38,7 @@ public abstract class PlayerState: State
         float velocity = originalVelocity;
 
         velocity = 0;
+
         bool pressLeft = Input.IsActionPressed("move_left");
         bool pressRight = Input.IsActionPressed("move_right");
 
@@ -60,13 +61,9 @@ public abstract class PlayerState: State
     {
         float velocity = originalVelocity;
 
-        bool pressLeft = Input.IsActionPressed("move_left");
-        bool pressRight = Input.IsActionPressed("move_right");
+        float movementInput = Input.GetAxis("move_left", "move_right");
 
-        // pressing left and right together cancels each other out
-        // if inputing in one direction while moving in the other,
-        // slow down even fast by adding Decceleration as well
-        if ((!pressLeft && !pressRight) || (pressLeft && pressRight))
+        if (movementInput == 0)
         {
             if (velocity < 0)
             {
@@ -77,23 +74,16 @@ public abstract class PlayerState: State
                 velocity = Math.Max(velocity - blackboard.Decceleration * delta, 0);
             }
         }
-        else if (pressLeft)
+        else
         {
             float acc = blackboard.Acceleration;
-            if(velocity > 0)
+            // if the movement input is in the opposite direction of player traffic
+            // use decceleration to slow down more quickly
+            if ((velocity > 0 && movementInput < 0) || (velocity < 0 && movementInput > 0))
             {
                 acc += blackboard.Decceleration;
             }
-            velocity -= acc * delta;
-        }
-        else if (pressRight)
-        {
-            float acc = blackboard.Acceleration;
-            if (velocity < 0)
-            {
-                acc += blackboard.Decceleration;
-            }
-            velocity += acc * delta;
+            velocity += acc * delta * movementInput;
         }
 
         velocity = Clamp(velocity, -blackboard.PlayerMaxSpeed, blackboard.PlayerMaxSpeed);
