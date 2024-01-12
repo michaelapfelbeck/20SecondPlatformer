@@ -69,6 +69,8 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
 
     private BoolBuffer coyoteBuffer;
 
+    private BufferButton dashBuffer;
+
     public override void _Ready()
     {
         Node result = GetNode("AnimatedSprite");
@@ -77,6 +79,8 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         jumpBuffer = new BufferButton("jump", jumpBufferLifespan);
 
         coyoteBuffer = new BoolBuffer(() => IsOnGround(), coyoteTime);
+
+        dashBuffer = new BufferButton("dash", jumpBufferLifespan);
 
         DeriveVariables();
 
@@ -171,6 +175,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         DashHandler(delta);
 
         jumpBuffer.TIck(delta);
+        dashBuffer.TIck(delta);
         coyoteBuffer.TIck(delta);
 
         stateMachine.Tick(delta);
@@ -185,15 +190,15 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
 
     private void DashHandler(float delta)
     {
-        if (dashing && dashTime >= dashLength)
+        if (dashing && IsOnFloor() && dashTime >= dashLength)
         {
             dashing = false;
         }
-        else if (dashing && Input.IsActionPressed("dash"))
+        else if (dashing && dashBuffer.Pressed)
         {
             dashTime += delta;
         }
-        else if (Input.IsActionJustPressed("dash") && dashReset >= dashCooldown)
+        else if (dashBuffer.JustPressed && IsOnFloor() && dashReset >= dashCooldown)
         {
             dashing = true;
             dashReset = 0;
