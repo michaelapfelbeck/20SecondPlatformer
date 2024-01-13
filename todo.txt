@@ -4,5 +4,6 @@ add sfx
 add level loading
 add ui
 add menu
-add gamepad support
+figure out itch.io input problem (jump height is wrong)
+add FPS display
 better payer character
