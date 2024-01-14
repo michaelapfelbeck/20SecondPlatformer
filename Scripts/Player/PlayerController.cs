@@ -9,9 +9,13 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public float jumpHeight = 128;
     [Export]
     public float jumpTimeToPeak = 1;
+    // when jumping, jumpVelocityCut = true cuts the players' upward velocity in half when they let go of the button,
+    // this lets you have a variable jump height without making fall gravity higher (jumpTimeToPeak vs jumpTimeToFall)
+    // maybe re-use jumpTimeToFall for how much to cut the velocity?
+    [Export]
+    public bool jumpVelocityCut = false;
     [Export]
     public float jumpTimeToFall = 0.5f;
-
     [Export]    // seconds, time to go from stopped to max running speed, 0 = instant
     public float accTime = 0.5f;
     [Export]    // seconds, time to go from max running speed to stopped if the let go of the controls, 0 = instant
@@ -119,7 +123,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         Idle idle = new Idle(this, this, sprite);
         Running run = new Running(this, this, sprite);
         Falling fall = new Falling(this, this, sprite);
-        Jumping jump = new Jumping(this, this, sprite);
+        Jumping jump = new Jumping(this, this, sprite, jumpVelocityCut);
 
         stateMachine.At(idle, fall, IsFalling, "1");
         stateMachine.At(run, fall, IsFalling, "2");

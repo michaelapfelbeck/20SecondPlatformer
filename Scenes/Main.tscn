@@ -1,36 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/DirtCenter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scripts/PlatformerCamera.cs" type="Script" id=3]
 [ext_resource path="res://Scenes/FramerateDisplay.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 160, 448 )
-jumpHeight = 272.0
-jumpTimeToPeak = 0.5
-jumpTimeToFall = 0.3
-accTime = 0.5
-playerMaxSpeed = 850.0
-doubleJump = false
-fallDeathHeight = 1000.0
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-current = true
-zoom = Vector2( 2, 2 )
-limit_left = -50
-limit_bottom = 800
-smoothing_enabled = true
-drag_margin_left = 0.1
-drag_margin_top = 0.15
-drag_margin_right = 0.1
-editor_draw_screen = false
-script = ExtResource( 3 )
-lookaheadSpeed = 2.0
-lookAheadMax = Vector2( 10, 1 )
-player = NodePath("..")
 
 [node name="Terrain" type="Node" parent="."]
 
