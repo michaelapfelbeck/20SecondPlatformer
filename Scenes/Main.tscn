@@ -199,5 +199,7 @@ position = Vector2( 2368, 256 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="FPS" parent="CanvasLayer" instance=ExtResource( 4 )]
-margin_left = 1024.0
-margin_right = 1280.0
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -256.0
+margin_right = 0.0

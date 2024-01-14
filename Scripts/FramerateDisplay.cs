@@ -16,6 +16,7 @@ public class FramerateDisplay : Label
         DeriveVariables();
         timerAcc = 0;
         fpsAcc = 0;
+        Text = "";
     }
 
     public override void _Process(float delta)
@@ -31,6 +32,17 @@ public class FramerateDisplay : Label
             updateCount = 0;
             timerAcc -= updateRate;
         }
+
+        if (Input.IsActionJustPressed("fullscreen"))
+        {
+            ToggleFullscreen();
+        }
+    }
+
+    private void ToggleFullscreen()
+    {
+        GD.Print("Toggle Fullscreen");
+        OS.WindowFullscreen = !OS.WindowFullscreen;
     }
 
     private void DeriveVariables()
@@ -40,8 +52,19 @@ public class FramerateDisplay : Label
 
     private void UpdateCounter()
     {
-        float result = fpsAcc / updateCount;
-        Text = String.Format(template, (int)result);
+        if(updateCount == 0)
+        {
+            return;
+        }
+        int result = (int)(fpsAcc / updateCount);
+        try
+        {
+            Text = String.Format(template, result);
+        }
+        catch
+        {
+            Text = result.ToString();
+        }
         //GD.Print(String.Format(template, (int)result));
         //GD.Print("actual: " + Engine.GetFramesPerSecond());
     }
