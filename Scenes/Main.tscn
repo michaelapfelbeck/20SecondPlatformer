@@ -1,177 +1,13 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Scenes/DirtCenter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/tiles.tres" type="TileSet" id=3]
 [ext_resource path="res://Scenes/FramerateDisplay.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 160, 448 )
-
-[node name="Terrain" type="Node" parent="."]
-
-[node name="DirtCenter" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 64, 640 )
-
-[node name="DirtCenter2" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 192, 640 )
-
-[node name="DirtCenter3" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 320, 640 )
-
-[node name="DirtCenter4" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 448, 640 )
-
-[node name="DirtCenter5" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 576, 640 )
-
-[node name="DirtCenter6" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 1472, 640 )
-
-[node name="DirtCenter7" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 704, 640 )
-
-[node name="DirtCenter8" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 832, 640 )
-
-[node name="DirtCenter9" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 1344, 640 )
-
-[node name="DirtCenter10" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 960, 640 )
-
-[node name="DirtCenter11" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 1088, 640 )
-
-[node name="DirtCenter12" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 1216, 640 )
-
-[node name="DirtCenter13" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 1600, 640 )
-
-[node name="DirtCenter14" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 1728, 640 )
-
-[node name="DirtCenter15" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 1856, 640 )
-
-[node name="DirtCenter16" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 1984, 640 )
-
-[node name="DirtCenter17" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 2112, 640 )
-
-[node name="DirtCenter18" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 2112, 256 )
-
-[node name="DirtCenter19" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 2240, 640 )
-
-[node name="DirtCenter25" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 2368, 640 )
-
-[node name="DirtCenter26" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 2496, 640 )
-
-[node name="DirtCenter27" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 2624, 640 )
-
-[node name="DirtCenter28" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 2752, 640 )
-
-[node name="DirtCenter29" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 2880, 640 )
-
-[node name="DirtCenter30" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 3776, 640 )
-
-[node name="DirtCenter31" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 3008, 640 )
-
-[node name="DirtCenter32" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 3136, 640 )
-
-[node name="DirtCenter33" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 3648, 640 )
-
-[node name="DirtCenter34" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 3264, 640 )
-
-[node name="DirtCenter35" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 3392, 640 )
-
-[node name="DirtCenter36" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 3520, 640 )
-
-[node name="DirtCenter37" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 3904, 640 )
-
-[node name="DirtCenter38" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 4032, 640 )
-
-[node name="DirtCenter39" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 4160, 640 )
-
-[node name="DirtCenter40" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 4288, 640 )
-
-[node name="DirtCenter41" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 4416, 640 )
-
-[node name="DirtCenter42" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 4544, 640 )
-
-[node name="DirtCenter43" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 5312, 640 )
-
-[node name="DirtCenter44" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 4672, 640 )
-
-[node name="DirtCenter45" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 5184, 640 )
-
-[node name="DirtCenter46" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 4800, 640 )
-
-[node name="DirtCenter47" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 4928, 640 )
-
-[node name="DirtCenter48" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 5056, 640 )
-
-[node name="DirtCenter49" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 5440, 640 )
-
-[node name="DirtCenter50" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 5568, 640 )
-
-[node name="DirtCenter51" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 5696, 640 )
-
-[node name="DirtCenter52" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 5824, 640 )
-
-[node name="DirtCenter53" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 5952, 640 )
-
-[node name="DirtCenter54" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 6080, 640 )
-
-[node name="DirtCenter20" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 832, 512 )
-
-[node name="DirtCenter21" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 2240, 256 )
-
-[node name="DirtCenter22" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 1472, 512 )
-
-[node name="DirtCenter23" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 1472, 384 )
-
-[node name="DirtCenter24" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 2368, 256 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -180,3 +16,9 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -256.0
 margin_right = 0.0
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 1179648, 0, 0, 1179649, 1, 0, 1179650, 1, 0, 1179651, 1, 0, 1179652, 1, 0, 1179653, 1, 0, 1179654, 1, 0, 1179655, 1, 0, 1179656, 1, 0, 1179657, 1, 0, 1179658, 1, 0, 1179659, 1, 0, 1179660, 1, 0, 1179661, 1, 0, 1179662, 1, 0, 1179663, 1, 0, 1179664, 1, 0, 1179665, 1, 0, 1179666, 1, 0, 1179667, 1, 0, 1179668, 2, 0, 1245184, 3, 0, 1245185, 4, 0, 1245186, 4, 0, 1245187, 4, 0, 1245188, 4, 0, 1245189, 4, 0, 1245190, 4, 0, 1245191, 4, 0, 1245192, 4, 0, 1245193, 4, 0, 1245194, 4, 0, 1245195, 4, 0, 1245196, 4, 0, 1245197, 4, 0, 1245198, 4, 0, 1245199, 4, 0, 1245200, 4, 0, 1245201, 4, 0, 1245202, 4, 0, 1245203, 4, 0, 1245204, 5, 0, 1310720, 3, 0, 1310721, 4, 0, 1310722, 4, 0, 1310723, 4, 0, 1310724, 4, 0, 1310725, 4, 0, 1310726, 4, 0, 1310727, 4, 0, 1310728, 4, 0, 1310729, 4, 0, 1310730, 4, 0, 1310731, 4, 0, 1310732, 4, 0, 1310733, 4, 0, 1310734, 4, 0, 1310735, 4, 0, 1310736, 4, 0, 1310737, 4, 0, 1310738, 4, 0, 1310739, 4, 0, 1310740, 5, 0, 1376256, 6, 0, 1376257, 7, 0, 1376258, 7, 0, 1376259, 7, 0, 1376260, 7, 0, 1376261, 7, 0, 1376262, 7, 0, 1376263, 7, 0, 1376264, 7, 0, 1376265, 7, 0, 1376266, 7, 0, 1376267, 7, 0, 1376268, 7, 0, 1376269, 7, 0, 1376270, 7, 0, 1376271, 7, 0, 1376272, 7, 0, 1376273, 7, 0, 1376274, 7, 0, 1376275, 7, 0, 1376276, 8, 0 )
