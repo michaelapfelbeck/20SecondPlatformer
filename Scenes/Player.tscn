@@ -5,7 +5,7 @@
 [ext_resource path="res://Scripts/PlatformerCamera.cs" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 48, 80 )
+extents = Vector2( 32, 32 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -19,16 +19,15 @@ fallDeathHeight = 1000.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
-animation = "front"
+animation = "idle"
+frame = 8
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 48 )
 shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 2, 2 )
 limit_left = -50
 limit_bottom = 800
 smoothing_enabled = true
@@ -38,5 +37,4 @@ drag_margin_right = 0.1
 editor_draw_screen = false
 script = ExtResource( 3 )
 lookaheadSpeed = 2.0
-lookAheadMax = Vector2( 10, 1 )
 player = NodePath("..")

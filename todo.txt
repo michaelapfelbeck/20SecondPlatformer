@@ -5,5 +5,4 @@ add level loading
 add ui
 add menu
 figure out itch.io input problem (jump height is wrong)
-add FPS display
 better payer character

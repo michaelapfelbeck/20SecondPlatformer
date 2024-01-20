@@ -15,7 +15,8 @@ class Running : PlayerState
     public override void OnEnter()
     {
         blackboard.DoubleJumped = false;
-        sprite.Play("walk");
+        sprite.Play("run");
+        sprite.SpeedScale = 3f;
     }
     public override void OnExit()
     {

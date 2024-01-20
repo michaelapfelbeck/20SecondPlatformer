@@ -10,7 +10,8 @@ class Falling : PlayerState
     public override string Description => "Falling"; 
     public override void OnEnter()
     {
-        sprite.Play("jump");
+        sprite.Play("fall");
+        sprite.SpeedScale = 1f;
     }
     public override void OnExit()
     {

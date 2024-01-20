@@ -23,6 +23,7 @@ class Jumping : PlayerState
         blackboard.CoyoteBuffer.Clear();
         jumpReleased = false;
         sprite.Play("jump");
+        sprite.SpeedScale = 1f;
     }
     public override void OnExit()
     {

@@ -11,7 +11,7 @@ class Idle : PlayerState
     public override void OnEnter()
     {
         blackboard.DoubleJumped = false;
-        sprite.Play("front");
+        sprite.Play("idle");
     }
     public override void OnExit()
     {
