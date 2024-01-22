@@ -9,18 +9,18 @@ extents = Vector2( 32, 32 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
-jumpHeight = 272.0
-jumpTimeToPeak = 0.5
+jumpTimeToPeak = 0.3
+jumpVelocityCut = true
 jumpTimeToFall = 0.3
 deccTime = 0.25
-playerMaxSpeed = 850.0
+playerMaxSpeed = 500.0
 doubleJump = false
 fallDeathHeight = 1000.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 8
+frame = 9
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
