@@ -12,6 +12,7 @@ class Idle : PlayerState
     {
         blackboard.DoubleJumped = false;
         sprite.Play("idle");
+        sprite.SpeedScale = 1f;
     }
     public override void OnExit()
     {

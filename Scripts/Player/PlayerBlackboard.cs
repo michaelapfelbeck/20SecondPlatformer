@@ -14,6 +14,9 @@ public interface PlayerBlackboard
     float Gravity { get; }
     float FallGravity { get; }
     float TerminalVelocity { get; }
+    float WallSlideVelocity { get; }
+    bool IsWallSlide { get; }
+    Direction WallSlideDirection { get; }
 
     bool InstantAcceleration { get; }
     float PlayerMaxSpeed { get; }

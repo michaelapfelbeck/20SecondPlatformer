@@ -5,4 +5,3 @@ add level loading
 add ui
 add menu
 figure out itch.io input problem (jump height is wrong)
-better payer character
