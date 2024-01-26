@@ -17,6 +17,7 @@ class WallSlide : PlayerState
         blackboard.DoubleJumped = false;
         sprite.Play("wallJump");
         sprite.SpeedScale = 1f;
+        SetWallFacing();
     }
 
     public override void OnExit()
@@ -25,8 +26,12 @@ class WallSlide : PlayerState
 
     public override void Tick(float delta)
     {
-        SetWallFacing();
+        Vector2 velocity = blackboard.Velocity;
+        velocity.y = ApplyGravity(velocity.y, blackboard.Gravity, delta);
+        velocity += JumpFromWall();
+        blackboard.Velocity = velocity;
     }
+
     protected void SetWallFacing()
     {
 
@@ -38,5 +43,24 @@ class WallSlide : PlayerState
         {
             sprite.FlipH = true;
         }
+    }
+    private Vector2 JumpFromWall()
+    {
+        Vector2 velocity = Vector2.Zero;
+        
+        if (blackboard.JumpBuffer.JustPressed)
+        {
+            GD.Print("jumped from wall");
+            velocity.y -= blackboard.JumpForce;
+            blackboard.JumpBuffer.Consume();
+            if(blackboard.WallSlideDirection == Direction.Left)
+            {
+                velocity.x += blackboard.PlayerMaxSpeed;
+            } else
+            {
+                velocity.x -= blackboard.PlayerMaxSpeed;
+            }
+        }
+        return velocity;
     }
 }

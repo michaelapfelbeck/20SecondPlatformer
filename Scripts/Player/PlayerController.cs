@@ -157,12 +157,10 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
             sliding = true;
             if (rightCollide)
             {
-                GD.Print("slide on right");
                 slideSide = Direction.Right;
             }
             else
             {
-                GD.Print("slide on left");
                 slideSide = Direction.Left;
             }
         }
