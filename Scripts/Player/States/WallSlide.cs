@@ -50,7 +50,6 @@ class WallSlide : PlayerState
         
         if (blackboard.JumpBuffer.JustPressed)
         {
-            GD.Print("jumped from wall");
             velocity.y -= blackboard.JumpForce;
             blackboard.JumpBuffer.Consume();
             if(blackboard.WallSlideDirection == Direction.Left)

@@ -6,6 +6,7 @@ public enum Direction
     Left,
     Right
 }
+
 public class PlayerController : KinematicBody2D, PlayerBlackboard
 {
     public Vector2 velocity = new Vector2(0, 0);
@@ -86,13 +87,15 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
 
     private RayCast2D[] rightRays;
     private RayCast2D[] leftRays;
+    private RayCast2D[] bottomRays;
 
     public override void _Ready()
     {
         Node result = GetNode("AnimatedSprite");
 
-        rightRays = new RayCast2D[] { (RayCast2D)GetNode("RightTopRay"), (RayCast2D)GetNode("RightBottomRay") };
-        leftRays = new RayCast2D[] { (RayCast2D)GetNode("LeftTopRay"), (RayCast2D)GetNode("LeftBottomRay") };
+        rightRays = new RayCast2D[] { GetNode<RayCast2D>("RightTopRay"), GetNode<RayCast2D>("RightBottomRay") };
+        leftRays = new RayCast2D[] { GetNode<RayCast2D>("LeftTopRay"), GetNode<RayCast2D>("LeftBottomRay") };
+        bottomRays = new RayCast2D[] { GetNode<RayCast2D>("BottomLeftRay"), GetNode<RayCast2D>("BottomRightRay") };
 
         sprite = (AnimatedSprite)result;
 
@@ -127,6 +130,8 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
 
         stateMachine.Tick(delta);
 
+        MovingPlatformHandler(delta);
+
         velocity = MoveAndSlide(velocity, Vector2.Up);
 
         if (Position.y > fallDeathHeight)
@@ -134,6 +139,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
             die();
         }
     }
+
 
     private void WallSlideHandler()
     {
@@ -163,6 +169,20 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
             {
                 slideSide = Direction.Left;
             }
+        }
+    }
+
+    private void MovingPlatformHandler(float delta)
+    {
+        if (bottomRays[0].IsColliding())
+        {
+            MovingPlatformRigidBody collided = (MovingPlatformRigidBody)bottomRays[0].GetCollider();
+            Position += collided.PlatformVelocity * delta;
+        }
+        else if (bottomRays[1].IsColliding())
+        {
+            MovingPlatformRigidBody collided = (MovingPlatformRigidBody)bottomRays[1].GetCollider();
+            Position += collided.PlatformVelocity * delta;
         }
     }
 

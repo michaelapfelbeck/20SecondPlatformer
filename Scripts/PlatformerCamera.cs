@@ -13,7 +13,7 @@ public class PlatformerCamera : Camera2D
     private Vector2 lookAheadMax = Vector2.Zero;
 
     [Export]
-    private NodePath player;
+    private NodePath player = null;
  
     private PlayerBlackboard blackboard;
 
