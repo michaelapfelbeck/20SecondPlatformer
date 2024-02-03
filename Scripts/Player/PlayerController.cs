@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public enum Direction
 {
@@ -9,6 +8,7 @@ public enum Direction
 
 public class PlayerController : KinematicBody2D, PlayerBlackboard
 {
+    public bool debug = false;
     public Vector2 velocity = new Vector2(0, 0);
     // values are a;; pixels/second unless otherwise noted
     [Export]
@@ -36,13 +36,13 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public float dashCooldown = 1;
 
     [Export]
-    public float jumpBufferLifespan = 0.07f;
+    public float jumpBufferLifespan = 0.2f;
     [Export]
     public bool doubleJump = true;
     [Export]
     public float terminalVelocity = 1000;
     [Export]
-    public float wallSlideVelocity = 250;
+    public float wallSlideVelocity = 100;
 
     [Export]
     public float fallDeathHeight = 600;
@@ -61,7 +61,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public float FallGravity { get { return fallGravity; } }
     public float TerminalVelocity { get { return sliding ? wallSlideVelocity : terminalVelocity; } }
     public float WallSlideVelocity { get { return wallSlideVelocity; } }
-    public float PlayerMaxSpeed { get { return dashing? playerMaxSpeed * dashMultiplier : playerMaxSpeed; } }
+    public float PlayerMaxSpeed { get { return dashing ? playerMaxSpeed * dashMultiplier : playerMaxSpeed; } }
     public bool InstantAcceleration { get; private set; }
     public float Acceleration { get { return dashing ? acceleration * dashMultiplier : acceleration; } }
     public float Decceleration { get => decceleration; }
@@ -118,7 +118,10 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     {
         base._Process(delta);
         // update every frame when tweaking variables
-        // DeriveVariables();
+        if (debug)
+        {
+            DeriveVariables();
+        }
 
         DashHandler(delta);
 
@@ -130,7 +133,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
 
         stateMachine.Tick(delta);
 
-        MovingPlatformHandler(delta);
+        PlatformHandler(delta);
 
         velocity = MoveAndSlide(velocity, Vector2.Up);
 
@@ -140,6 +143,10 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         }
     }
 
+    public override void _PhysicsProcess(float delta)
+    {
+        base._PhysicsProcess(delta);
+    }
 
     private void WallSlideHandler()
     {
@@ -150,7 +157,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         }
 
         float movementInput = Input.GetAxis("move_left", "move_right");
-        if(movementInput == 0)
+        if (movementInput == 0)
         {
             return;
         }
@@ -172,17 +179,32 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         }
     }
 
-    private void MovingPlatformHandler(float delta)
+    private void PlatformHandler(float delta)
     {
         if (bottomRays[0].IsColliding())
         {
-            MovingPlatformRigidBody collided = (MovingPlatformRigidBody)bottomRays[0].GetCollider();
-            Position += collided.PlatformVelocity * delta;
+            IPlatform collided = (IPlatform)bottomRays[0].GetCollider();
+            ApplyPlatformEffects(delta, collided);
         }
         else if (bottomRays[1].IsColliding())
         {
-            MovingPlatformRigidBody collided = (MovingPlatformRigidBody)bottomRays[1].GetCollider();
-            Position += collided.PlatformVelocity * delta;
+            IPlatform collided = (IPlatform)bottomRays[1].GetCollider();
+            ApplyPlatformEffects(delta, collided);
+        }
+    }
+
+    private void ApplyPlatformEffects(float delta, IPlatform collided)
+    {
+        Position += collided.PlatformVelocity * delta;
+        if(collided.Bounciness > 0 && velocity.y >= 0)
+        {
+            float newVelocity = Mathf.Abs(velocity.y) + Mathf.Abs(collided.Bounciness);
+            newVelocity = Mathf.Min(newVelocity, terminalVelocity);
+            if (JumpBuffer.JustPressed)
+            {
+                newVelocity = Mathf.Max(newVelocity, jumpForce);
+            }
+            velocity.y = -1 * newVelocity;
         }
     }
 
@@ -199,7 +221,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     // https://www.youtube.com/watch?v=hG9SzQxaCm8
     private void DeriveVariables()
     {
-        if(accTime <= 0)
+        if (accTime <= 0)
         {
             InstantAcceleration = true;
             acceleration = 0;
@@ -214,12 +236,13 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         jumpForce = 2.0f * jumpHeight / jumpTimeToPeak;
         gravity = 2.0f * jumpHeight / (jumpTimeToPeak * jumpTimeToPeak);
         fallGravity = 2.0f * jumpHeight / (jumpTimeToFall * jumpTimeToFall);
+        GD.Print("jumpforce: " + jumpForce);
     }
 
     private void SetupStateMachine()
     {
         stateMachine = new PlayerStateMachine();
-        stateMachine.Debug = false;
+        stateMachine.Debug = debug;
 
         Idle idle = new Idle(this, this, sprite);
         Running run = new Running(this, this, sprite);
@@ -285,13 +308,15 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         {
             dashing = true;
             dashReset = 0;
-            if(velocity.x < 0)
-            {
-                velocity.x = Mathf.Min(-1 * PlayerMaxSpeed * (1 + dashMultiplier / 2), velocity.x);
-            } else
-            {
-                velocity.x = Mathf.Max(PlayerMaxSpeed * (1 + dashMultiplier / 2), velocity.x);
-            }
+            // originally this set the player velocity to at least your max run speed when you start dashing
+            // turns out that feels super odd from a standstill
+            //if(velocity.x < 0)
+            //{
+            //    velocity.x = Mathf.Min(-1 * PlayerMaxSpeed * (1 + dashMultiplier / 2), velocity.x);
+            //} else
+            //{
+            //    velocity.x = Mathf.Max(PlayerMaxSpeed * (1 + dashMultiplier / 2), velocity.x);
+            //}
         }
         else
         {

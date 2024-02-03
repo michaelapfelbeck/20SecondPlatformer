@@ -16,6 +16,8 @@ public class BufferButton
     public bool Pressed { get => pressed; }
     public bool Released { get => !pressed; }
 
+    public bool ConsumedThisFrame { get; private set; }
+
     public void Reset()
     {
         pressed = false;
@@ -30,6 +32,7 @@ public class BufferButton
 
     public void TIck(float delta)
     {
+        ConsumedThisFrame = false;
         if (Input.IsActionJustPressed(button)){
             pressTime = 0;
             pressed = true;
@@ -46,5 +49,6 @@ public class BufferButton
     public void Consume()
     {
         pressTime = float.MaxValue;
+        ConsumedThisFrame = true;
     }
 }
