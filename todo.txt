@@ -1,5 +1,4 @@
 improve camera lookahead
-add wall jump
 add sfx
 add level loading
 add ui
