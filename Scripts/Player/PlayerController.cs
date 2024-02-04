@@ -115,6 +115,8 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         SetupStateMachine();
     }
 
+
+    private float velocityBuffer = 0;
     public override void _Process(float delta)
     {
         base._Process(delta);
@@ -136,6 +138,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
 
         PlatformHandler(delta);
 
+        velocityBuffer = velocity.y;
         velocity = MoveAndSlide(velocity, Vector2.Up);
 
         if (Position.y > fallDeathHeight)
@@ -199,7 +202,8 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         Position += collided.PlatformVelocity * delta;
         if(collided.Bounciness > 0 && velocity.y >= 0)
         {
-            float newVelocity = Mathf.Abs(velocity.y) + Mathf.Abs(collided.Bounciness);
+            float frameVelocity = Mathf.Max(Mathf.Abs(velocityBuffer), Mathf.Abs(velocity.y));
+            float newVelocity = frameVelocity + Mathf.Abs(collided.Bounciness);
             newVelocity = Mathf.Min(newVelocity, terminalVelocity);
             if (JumpBuffer.JustPressed)
             {
