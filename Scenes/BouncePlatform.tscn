@@ -15,6 +15,7 @@ extents = Vector2( 64, 5 )
 [node name="BouncePlatform" type="Path2D"]
 curve = SubResource( 2 )
 script = ExtResource( 3 )
+bounciness = 500.0
 speed = 0.0
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]

@@ -10,6 +10,7 @@ public interface PlayerBlackboard
     Vector2 Velocity { get; set; }
     bool DoubleJump { get; }
     bool DoubleJumped { get; set; }
+    bool VelocityCut { get; }
     float JumpForce { get; }
     float Gravity { get; }
     float FallGravity { get; }

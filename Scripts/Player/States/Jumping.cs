@@ -11,17 +11,14 @@ class Jumping : PlayerState
 
     private float Gravity { get { return jumpReleased ? blackboard.FallGravity : blackboard.Gravity; } }
 
-    private bool velocityCut = false;
-
-    public Jumping(KinematicBody2D body, PlayerBlackboard blackboard, AnimatedSprite sprite, bool velocityCut) : base(body, blackboard, sprite)
+    public Jumping(KinematicBody2D body, PlayerBlackboard blackboard, AnimatedSprite sprite) : base(body, blackboard, sprite)
     {
-        this.velocityCut = velocityCut;
     }
     public override string Description => "Jumping"; 
     public override void OnEnter()
     {
         blackboard.CoyoteBuffer.Clear();
-        jumpReleased = false;
+        jumpReleased = blackboard.JumpBuffer.Released;
         sprite.Play("jump");
         sprite.SpeedScale = 1f;
     }
@@ -38,7 +35,7 @@ class Jumping : PlayerState
 
         if (blackboard.JumpBuffer.Released)
         {
-            if (velocityCut && !jumpReleased && blackboard.Velocity.y < 0)
+            if (blackboard.VelocityCut && !jumpReleased && blackboard.Velocity.y < 0)
             {
                 cutVelocity = true;
             }

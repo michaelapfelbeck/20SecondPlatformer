@@ -66,6 +66,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public float Acceleration { get { return dashing ? acceleration * dashMultiplier : acceleration; } }
     public float Decceleration { get => decceleration; }
     public float JumpForce { get { return jumpForce; } }
+    public bool VelocityCut { get { return jumpVelocityCut; } }
     public bool DoubleJump { get { return doubleJump; } }
     public bool DoubleJumped { get; set; }
     public BufferButton JumpBuffer { get { return jumpBuffer; } }
@@ -202,7 +203,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
             newVelocity = Mathf.Min(newVelocity, terminalVelocity);
             if (JumpBuffer.JustPressed)
             {
-                newVelocity = Mathf.Max(newVelocity, jumpForce);
+                newVelocity = Mathf.Max(newVelocity, jumpForce * 1.1f);
             }
             velocity.y = -1 * newVelocity;
         }
@@ -236,7 +237,6 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         jumpForce = 2.0f * jumpHeight / jumpTimeToPeak;
         gravity = 2.0f * jumpHeight / (jumpTimeToPeak * jumpTimeToPeak);
         fallGravity = 2.0f * jumpHeight / (jumpTimeToFall * jumpTimeToFall);
-        GD.Print("jumpforce: " + jumpForce);
     }
 
     private void SetupStateMachine()
@@ -247,7 +247,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
         Idle idle = new Idle(this, this, sprite);
         Running run = new Running(this, this, sprite);
         Falling fall = new Falling(this, this, sprite);
-        Jumping jump = new Jumping(this, this, sprite, jumpVelocityCut);
+        Jumping jump = new Jumping(this, this, sprite);
         WallSlide slide = new WallSlide(this, this, sprite);
 
         stateMachine.At(idle, fall, IsFalling, "1");
