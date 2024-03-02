@@ -31,7 +31,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     [Export]
     public float dashMultiplier = 2;
     [Export]
-    public float dashLength = 1;
+    public float dashDuration = 1;
     [Export]
     public float dashCooldown = 1;
 
@@ -300,7 +300,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
 
     private void DashHandler(float delta)
     {
-        if (dashing && IsOnFloor() && dashTime >= dashLength)
+        if (dashing && IsOnFloor() && dashTime >= dashDuration)
         {
             dashing = false;
         }
