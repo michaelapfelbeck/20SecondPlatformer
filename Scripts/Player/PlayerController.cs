@@ -10,7 +10,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
 {
     public bool debug = false;
     public Vector2 velocity = new Vector2(0, 0);
-    // values are a;; pixels/second unless otherwise noted
+    // values are all pixels/second unless otherwise noted
     [Export]
     public float jumpHeight = 128;
     [Export]
@@ -29,7 +29,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     [Export]
     public float playerMaxSpeed = 200;
     [Export]
-    public float dashMultiplier = 2;
+    public float dashSpeedMultiplier = 2;
     [Export]
     public float dashDuration = 1;
     [Export]
@@ -61,9 +61,9 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     public float FallGravity { get { return fallGravity; } }
     public float TerminalVelocity { get { return sliding ? wallSlideVelocity : terminalVelocity; } }
     public float WallSlideVelocity { get { return wallSlideVelocity; } }
-    public float PlayerMaxSpeed { get { return dashing ? playerMaxSpeed * dashMultiplier : playerMaxSpeed; } }
+    public float PlayerMaxSpeed { get { return dashing ? playerMaxSpeed * dashSpeedMultiplier : playerMaxSpeed; } }
     public bool InstantAcceleration { get; private set; }
-    public float Acceleration { get { return dashing ? acceleration * dashMultiplier : acceleration; } }
+    public float Acceleration { get { return dashing ? acceleration * dashSpeedMultiplier : acceleration; } }
     public float Decceleration { get => decceleration; }
     public float JumpForce { get { return jumpForce; } }
     public bool VelocityCut { get { return jumpVelocityCut; } }
@@ -83,7 +83,7 @@ public class PlayerController : KinematicBody2D, PlayerBlackboard
     private bool dashing = false;
     private bool sliding = false;
     private Direction slideSide;
-    private float dashTime = 0f;
+    public float dashTime { get; private set; } = 0f;
     private float dashReset = 0f;
 
     private RayCast2D[] rightRays;
