@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/LevelComponents/MovingPlatform.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Scenes/LevelComponents/StationaryPlatform.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/LevelComponents/BouncePlatform.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scripts/UI/DashDisplayBar.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/TestTilesLoader.cs" type="Script" id=8]
+[ext_resource path="res://Scenes/TestTiles.tscn" type="PackedScene" id=9]
 
 [node name="Main" type="Node2D"]
 
@@ -48,3 +50,8 @@ position = Vector2( 2048, 384 )
 
 [node name="BouncePlatform2" parent="." instance=ExtResource( 6 )]
 position = Vector2( 3072, 576 )
+
+[node name="TestTilesLoader" type="Node2D" parent="."]
+position = Vector2( 448, 288 )
+script = ExtResource( 8 )
+geometry = ExtResource( 9 )
