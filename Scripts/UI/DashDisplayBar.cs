@@ -6,7 +6,7 @@ public class DashDisplayBar : ProgressBar
 
     public override void _Ready()
     {
-        controller = GetTree().Root.GetNode<PlayerController>("Main/Player");
+        //controller = GetTree().Root.GetNode<PlayerController>("Main/Player");
     }
 
     //private float acc = 0f;
@@ -35,6 +35,11 @@ public class DashDisplayBar : ProgressBar
         //    acc += delta;
         //}
         this.Value = progressBarValue;
+    }
+
+    public void _on_player_spawned(Node2D playerNode)
+    {
+        controller = (PlayerController)playerNode;
     }
 
     public float ReMap(float value, float istart, float istop, float ostart, float ostop)
