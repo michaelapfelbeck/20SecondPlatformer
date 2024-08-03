@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="20 Second Platformer"
-run/main_scene="res://Scenes/Main.tscn"
+run/main_scene="res://Scenes/TitleScreen.tscn"
 run/low_processor_mode_sleep_usec=8000
 config/icon="res://icon.png"
 
