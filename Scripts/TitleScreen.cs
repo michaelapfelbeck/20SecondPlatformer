@@ -18,4 +18,10 @@ public class TitleScreen : Node
         GD.Print("OnStartButton");
         GetTree().ChangeScene("res://Scenes/Main.tscn");
     }
+
+    private void OnQuitButton()
+    {
+        GD.Print("OnQuitButton");
+        GetTree().ChangeScene("res://Scenes/Main.tscn");
+    }
 }
