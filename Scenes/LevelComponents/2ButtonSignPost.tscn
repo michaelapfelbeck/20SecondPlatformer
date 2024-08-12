@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Fonts/KenneyPixel48.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scripts/DoubleButtonSignPost.cs" type="Script" id=2]
+[ext_resource path="res://Assets/kenneyInput/Xbox Series/xbox_dpad.png" type="Texture" id=3]
+[ext_resource path="res://Assets/kenneyInput/Keyboard & Mouse/keyboard_arrow_right.png" type="Texture" id=4]
+[ext_resource path="res://Assets/kenneyInput/Xbox Series/xbox_stick_l.png" type="Texture" id=5]
+[ext_resource path="res://Assets/kenneyInput/Keyboard & Mouse/keyboard_arrow_left.png" type="Texture" id=6]
+
+[node name="2ButtonSignPost" type="Node2D"]
+script = ExtResource( 2 )
+KeyboardTextureLeft = ExtResource( 6 )
+KeyboardTextureRight = ExtResource( 4 )
+ControllerTextureLeft = ExtResource( 5 )
+ControllerTextureRight = ExtResource( 3 )
+Text = "Move"
+inputTint = Color( 1, 0.12549, 0.12549, 1 )
+
+[node name="LeftSprite" type="Sprite" parent="."]
+position = Vector2( 36, 35 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 6 )
+
+[node name="RightSprite" type="Sprite" parent="."]
+position = Vector2( 90, 35 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 120.0
+margin_top = 18.0
+margin_right = 138.0
+margin_bottom = 54.0
+custom_fonts/font = ExtResource( 1 )
+text = "Move"

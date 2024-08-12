@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/SignPost.cs" type="Script" id=1]
+[ext_resource path="res://Assets/Fonts/KenneyPixel48.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/kenneyInput/Keyboard & Mouse/keyboard_ctrl.png" type="Texture" id=3]
+[ext_resource path="res://Assets/kenneyInput/Xbox Series/xbox_button_x.png" type="Texture" id=4]
+
+[node name="1ButtonSignPost" type="Node2D"]
+script = ExtResource( 1 )
+KeyboardTexture = ExtResource( 3 )
+ControllerTexture = ExtResource( 4 )
+Text = "Dash"
+inputTint = Color( 1, 0.12549, 0.12549, 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 36, 35 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 66.0
+margin_top = 18.0
+margin_right = 138.0
+margin_bottom = 54.0
+custom_fonts/font = ExtResource( 2 )
+text = "Dash"

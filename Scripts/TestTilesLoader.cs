@@ -8,7 +8,6 @@ public class TestTilesLoader : Node2D
 
     public override void _Ready()
     {
-        GD.Print("Hai.");
         Node geo = geometry.Instance();
         AddChild(geo);
     }
