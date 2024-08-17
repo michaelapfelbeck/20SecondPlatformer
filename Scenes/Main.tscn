@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scripts/TestTilesLoader.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/GeometryLoader.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Levels/TestLevel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/UI/FramerateDisplay.tscn" type="PackedScene" id=4]
@@ -28,7 +28,7 @@ script = ExtResource( 7 )
 script = ExtResource( 10 )
 playerPrefab = ExtResource( 2 )
 
-[node name="LevelLoader" type="Node2D" parent="."]
+[node name="GeometryLoader" type="Node2D" parent="."]
 script = ExtResource( 1 )
 geometry = ExtResource( 3 )
 
