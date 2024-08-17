@@ -32,7 +32,12 @@ public class TitleScreen : Node
     private void OnStartButton()
     {
         GD.Print("OnStartButton");
-        GetTree().ChangeScene("res://Scenes/Main.tscn");
+        //Node globalRoot = GetNode<Node>("/root/Global");
+        //GlobalVars globalVars = globalRoot.GetNode<GlobalVars>("GlobalVars");
+
+        LevelLoader levelLoader = GetNode<LevelLoader>("/root/Global/LevelLoader");
+        levelLoader.LoadTest();
+        //GetTree().ChangeScene("res://Scenes/Main.tscn");
     }
 
     private void OnQuitButton()
