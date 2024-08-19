@@ -12,6 +12,8 @@ public class GeometryLoader : Node2D
         {
             Load(geometry);
         }
+        String myPath = GetPath();
+        GD.Print($"path to GeometryLoader: {myPath}");
     }
 
     public void Load(PackedScene geometry)

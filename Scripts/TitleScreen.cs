@@ -36,7 +36,7 @@ public class TitleScreen : Node
         //GlobalVars globalVars = globalRoot.GetNode<GlobalVars>("GlobalVars");
 
         LevelLoader levelLoader = GetNode<LevelLoader>("/root/Global/LevelLoader");
-        levelLoader.LoadTest();
+        levelLoader.LoadGameplayLevel();
         //GetTree().ChangeScene("res://Scenes/Main.tscn");
     }
 
