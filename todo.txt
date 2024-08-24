@@ -1,4 +1,8 @@
-improve camera lookahead
+bug: visual gap between player and wall during slide
+bug: can wall slide while holding opposite direction
+bug: moving platform start adn stop points are incosistant 
+bug: 2 button signpost for movement is incorrect
+improve camera lookahead, esp while dashing
 add sfx
 add level loading
 add ui

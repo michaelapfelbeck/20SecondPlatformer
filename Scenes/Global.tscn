@@ -3,7 +3,7 @@
 [ext_resource path="res://GlobalVars.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/LevelLoader.cs" type="Script" id=2]
 [ext_resource path="res://Scenes/Main.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/Levels/TutorialLevel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Levels/TutorialLevel.tscn" type="PackedScene" id=4]
 
 [node name="Global" type="Node"]
 

@@ -43,6 +43,6 @@ public class TitleScreen : Node
     private void OnQuitButton()
     {
         GD.Print("OnQuitButton");
-        GetTree().ChangeScene("res://Scenes/Main.tscn");
+        //GetTree().ChangeScene("res://Scenes/Main.tscn");
     }
 }
