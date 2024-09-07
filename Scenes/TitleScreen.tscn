@@ -1,15 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Scripts/TitleScreen.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Screens/TitleScreen.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/KenneyPixel48.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Assets/Fonts/KenneyPixel96.tres" type="DynamicFont" id=3]
-[ext_resource path="res://Scripts/UI/StartButton.cs" type="Script" id=4]
 [ext_resource path="res://Assets/PixelAdventure/Menu/Buttons/Play.png" type="Texture" id=5]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+defaultFocus = NodePath("VBoxContainer/StartButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 200.0
@@ -22,24 +22,15 @@ custom_constants/separation = 40
 margin_right = 204.0
 margin_bottom = 42.0
 rect_pivot_offset = Vector2( -618, -160 )
-focus_neighbour_top = NodePath("../QuitButton")
-focus_neighbour_bottom = NodePath("../QuitButton")
-focus_next = NodePath("../QuitButton")
-focus_previous = NodePath("../QuitButton")
 custom_fonts/font = ExtResource( 2 )
 text = "Start"
 icon = ExtResource( 5 )
-script = ExtResource( 4 )
 
-[node name="StartButton2" type="Button" parent="VBoxContainer"]
+[node name="LevelSelectButton" type="Button" parent="VBoxContainer"]
 margin_top = 82.0
 margin_right = 204.0
 margin_bottom = 124.0
 rect_pivot_offset = Vector2( -618, -160 )
-focus_neighbour_top = NodePath("../QuitButton")
-focus_neighbour_bottom = NodePath("../QuitButton")
-focus_next = NodePath("../QuitButton")
-focus_previous = NodePath("../QuitButton")
 custom_fonts/font = ExtResource( 2 )
 text = "Level Select"
 
@@ -48,10 +39,6 @@ margin_top = 164.0
 margin_right = 204.0
 margin_bottom = 206.0
 rect_pivot_offset = Vector2( -618, -160 )
-focus_neighbour_top = NodePath("../StartButton")
-focus_neighbour_bottom = NodePath("../StartButton")
-focus_next = NodePath("../StartButton")
-focus_previous = NodePath("../StartButton")
 custom_fonts/font = ExtResource( 2 )
 text = "Quit"
 
@@ -64,5 +51,5 @@ custom_fonts/font = ExtResource( 3 )
 text = "20 Second Hero"
 
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="OnStartButton"]
-[connection signal="pressed" from="VBoxContainer/StartButton2" to="." method="OnStartButton"]
+[connection signal="pressed" from="VBoxContainer/LevelSelectButton" to="." method="OnLevelSelect"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="OnQuitButton"]

@@ -1,0 +1,95 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Fonts/KenneyPixel96.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scenes/UI/LevelSelectElement.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Screens/LevelSelect.cs" type="Script" id=3]
+
+[node name="LevelSelect" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+defaultFocus = NodePath("GridContainer/LevelSelectElement")
+
+[node name="Label" type="Label" parent="."]
+margin_left = 64.0
+margin_top = 75.0
+margin_right = 520.0
+margin_bottom = 175.0
+custom_fonts/font = ExtResource( 1 )
+text = "Level Select"
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_left = 4.0
+margin_top = 180.0
+margin_right = 1272.0
+margin_bottom = 632.0
+custom_constants/vseparation = 20
+custom_constants/hseparation = 40
+columns = 5
+
+[node name="LevelSelectElement" parent="GridContainer" instance=ExtResource( 2 )]
+margin_bottom = 188.0
+
+[node name="LevelSelectElement2" parent="GridContainer" instance=ExtResource( 2 )]
+margin_left = 250.0
+margin_right = 460.0
+margin_bottom = 188.0
+
+[node name="LevelSelectElement3" parent="GridContainer" instance=ExtResource( 2 )]
+margin_left = 500.0
+margin_right = 710.0
+margin_bottom = 188.0
+
+[node name="LevelSelectElement4" parent="GridContainer" instance=ExtResource( 2 )]
+margin_left = 750.0
+margin_right = 960.0
+margin_bottom = 188.0
+
+[node name="LevelSelectElement5" parent="GridContainer" instance=ExtResource( 2 )]
+margin_left = 1000.0
+margin_right = 1210.0
+margin_bottom = 188.0
+
+[node name="LevelSelectElement6" parent="GridContainer" instance=ExtResource( 2 )]
+margin_top = 208.0
+margin_bottom = 396.0
+
+[node name="LevelSelectElement7" parent="GridContainer" instance=ExtResource( 2 )]
+margin_left = 250.0
+margin_top = 208.0
+margin_right = 460.0
+margin_bottom = 396.0
+
+[node name="LevelSelectElement8" parent="GridContainer" instance=ExtResource( 2 )]
+margin_left = 500.0
+margin_top = 208.0
+margin_right = 710.0
+margin_bottom = 396.0
+
+[node name="LevelSelectElement9" parent="GridContainer" instance=ExtResource( 2 )]
+margin_left = 750.0
+margin_top = 208.0
+margin_right = 960.0
+margin_bottom = 396.0
+
+[node name="LevelSelectElement10" parent="GridContainer" instance=ExtResource( 2 )]
+margin_left = 1000.0
+margin_top = 208.0
+margin_right = 1210.0
+margin_bottom = 396.0
+
+[node name="LevelSelectElement11" parent="GridContainer" instance=ExtResource( 2 )]
+margin_top = 416.0
+margin_bottom = 604.0
+
+[node name="LevelSelectElement12" parent="GridContainer" instance=ExtResource( 2 )]
+margin_left = 250.0
+margin_top = 416.0
+margin_right = 460.0
+margin_bottom = 604.0
+
+[node name="LevelSelectElement13" parent="GridContainer" instance=ExtResource( 2 )]
+margin_left = 500.0
+margin_top = 416.0
+margin_right = 710.0
+margin_bottom = 604.0

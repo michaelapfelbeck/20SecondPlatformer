@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 //[Tool]
-public class LevelSelectElement : Control
+public class LevelSelectElement : PanelContainer
 {
     [Export]
     public NodePath iconPath;
