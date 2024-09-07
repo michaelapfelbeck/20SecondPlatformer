@@ -7,7 +7,7 @@ public class LevelContainer : Resource
     public PackedScene Scene { get; set; }
 
     [Export]
-    public Sprite ScreenShot { get; set; }
+    public Texture Icon { get; set; }
 
     [Export]
     public String Name { get; set; }
